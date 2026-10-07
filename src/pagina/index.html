@@ -26,7 +26,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <link rel="preload" href="fontes/fraunces-display-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fontes/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fontes/literata-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
   {{jsonld}}
@@ -104,7 +104,6 @@
 
     <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
       <div class="manifesto-inner">
-        <p class="eyebrow">Manifesto artístico</p>
         <h2 id="manifesto-title">Não passo de uma coincidência no meio de infinitas possibilidades…</h2>
         <div class="manifesto-body">
           <p>Eu sou filho das águas barrentas do Acre, onde a vida nasce forte, simples e cheia de mistérios. Carrego na alma a terra vermelha, o perfume da floresta e o sopro antigo das estrelas.</p>
@@ -127,7 +126,6 @@
     <section class="ebook" id="livro" aria-labelledby="livro-title">
       <div class="ebook-inner">
         <div class="ebook-copy">
-          <p class="eyebrow">Livro · em breve</p>
           <h2 id="livro-title">Vivências à Luz da Ayahuasca</h2>
           <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
           <p class="ebook-lead">Ensaios, imagens e símbolos entre arte e espiritualidade.</p>
@@ -148,8 +146,8 @@
         <p>Sobre uma obra, uma exposição ou o livro, fale diretamente com Márcio.</p>
         <a class="pill-button" href="{{whatsapp:contato}}" target="_blank" rel="noopener">Conversar sobre uma obra <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         <ul class="contact-links" role="list">
-          <li><a href="mailto:mv@seringal.com">mv@seringal.com</a></li>
-          <li><a href="https://www.instagram.com/encantoverissimo/" target="_blank" rel="noopener">Instagram @encantoverissimo</a></li>
+          <li><a href="mailto:mv@seringal.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>mv@seringal.com</span></a></li>
+          <li><a href="https://www.instagram.com/encantoverissimo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>Instagram @encantoverissimo</span></a></li>
         </ul>
       </div>
       <figure class="visit">
@@ -177,13 +175,13 @@
     <div class="viewer-body">
       <figure class="viewer-figure"></figure>
       <div class="viewer-copy">
-        <p class="viewer-count" aria-live="polite"><span id="viewer-index">1</span> de {{obras:total}}</p>
         <h2 id="viewer-title"></h2>
         <div class="viewer-text"></div>
       </div>
     </div>
     <div class="viewer-nav">
       <button class="viewer-prev" type="button" aria-label="Obra anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
+      <p class="viewer-count" aria-live="polite"><span id="viewer-index">1</span> de {{obras:total}}</p>
       <button class="viewer-next" type="button" aria-label="Próxima obra"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
     </div>
   </dialog>

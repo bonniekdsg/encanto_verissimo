@@ -110,6 +110,18 @@ test.describe("visualizador de obras", () => {
     await expect(page.locator(".viewer-text .work-contact")).toHaveAttribute("href", /wa\.me\/5568999852887/);
   });
 
+  test("obra vertical não invade o título no visualizador", async ({ page }) => {
+    await page.goto("/#obra-claridade");
+    const img = page.locator(".viewer-figure img");
+    await expect(img).toBeVisible();
+    await img.evaluate((el) => el.decode().catch(() => {}));
+    const imgBox = await img.boundingBox();
+    const titleBox = await page.locator("#viewer-title").boundingBox();
+    // imagem e título não se sobrepõem, em nenhum dos layouts (lado a lado ou empilhado)
+    const sideBySide = imgBox.x + imgBox.width <= titleBox.x;
+    expect(sideBySide || imgBox.y + imgBox.height <= titleBox.y + 1).toBe(true);
+  });
+
   test("os versos do manifesto abrem as obras", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("link", { name: "cruzes que renascem" }).click();

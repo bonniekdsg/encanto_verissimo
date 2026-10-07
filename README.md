@@ -42,7 +42,8 @@ Cada obra tem link direto: `encantoverissimo.com.br/#obra-<slug>` abre o visuali
 ## Decisões
 
 - **Imagens:** AVIF + WebP em 3 larguras, com hash do conteúdo no nome → cache `immutable` de 1 ano sem risco de servir versão velha.
-- **Fontes no próprio domínio** (Fraunces para títulos, alinhada ao logo e à capa do livro; Cormorant Garamond para texto). Sem Google Fonts: nenhum IP de visitante enviado a terceiros (LGPD) e nada de terceiros no caminho crítico. Fraunces foi instanciada (SOFT=100, peso 500–700) e reduzida de 120 KB para 52 KB.
+- **Fontes no próprio domínio** (Fraunces para títulos, alinhada ao logo e à capa do livro; Literata para todo texto de leitura — a Cormorant Garamond foi substituída após usuários relatarem leitura difícil em tamanhos pequenos). Sem Google Fonts: nenhum IP de visitante enviado a terceiros (LGPD) e nada de terceiros no caminho crítico. Fraunces foi instanciada (SOFT=100, peso 500–700) e reduzida de 120 KB para 52 KB.
+- **Ícones** de e-mail e Instagram: [Lucide](https://lucide.dev) (licença ISC), em SVG inline com o mesmo traço das setas.
 - **CSP estrita** (`default-src 'none'`, sem inline), HSTS, `nosniff`, `frame-ancestors 'none'`. Sem `style=` inline: o enquadramento por obra é gerado como CSS.
 - **Contato via WhatsApp** com mensagem pré-preenchida (inclusive por obra e para o aviso do lançamento do livro): sem formulário, sem backend e sem coleta de dados pelo site.
 
