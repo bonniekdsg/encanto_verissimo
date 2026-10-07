@@ -1,0 +1,169 @@
+{
+  "$comment": "Fonte única das obras. Textos de _privado/Informações site.docx. 'destaque' posiciona a obra no trio de abertura (primaria, secundaria, terciaria); as demais entram no acervo na ordem abaixo. 'foco' é o object-position usado quando o recorte do destaque corta a imagem.",
+  "obras": [
+    {
+      "slug": "ressurreicao",
+      "titulo": "Ressurreição",
+      "imagem": "ressurreicao.webp",
+      "destaque": "primaria",
+      "foco": "center 55%",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "1,88 × 0,84 m",
+      "alt": "Pintura Ressurreição: cruz de madeira sobre chamas em laranja e vermelho, com montanhas cinzentas ao alto, em peça de madeira de contorno irregular",
+      "texto": [
+        "A cruz é o elo entre a terra e o céu, entre o ser humano e suas divindades. Ela divide o tempo em morte, vida e renascimento, revelando a dualidade da existência: dia e noite, luz e trevas, alegria e lágrimas, paz e sangue.",
+        "De significado ambíguo, representa, no contexto religioso, a assunção de Cristo e transmite ensinamentos profundos de esperança, amor e perdão, gravados para sempre na alma humana. Também pode ser vista como símbolo de resiliência e de aceitação das dores do mundo.",
+        "Sob outra perspectiva, interpreta-se como emblema poderoso do alinhamento das forças da natureza e do equilíbrio universal, simbolizando os quatro elementos — fogo, terra, ar e água — e os pontos cardeais."
+      ]
+    },
+    {
+      "slug": "oke-aro-ossossi",
+      "titulo": "Okê Arô Ossóssi",
+      "imagem": "oke-aro-ossossi.webp",
+      "destaque": "secundaria",
+      "foco": "center 40%",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "0,41 × 0,41 m",
+      "alt": "Pintura redonda Okê Arô Ossóssi: flecha vertical sobre a floresta, com estrela, sol e folhas em verdes e azuis",
+      "texto": [
+        "A mata é a casa, o alimento e o mistério de Oxóssi. Orixá caçador, senhor da floresta e da fartura, conhece os caminhos das folhas, das ervas e de tudo o que nutre e fortalece.",
+        "Guardião das matas e dos animais, protege seus filhos da fome, dos perigos e das armadilhas da vida. Pai generoso, não abandona quem o chama nas batalhas do dia a dia."
+      ]
+    },
+    {
+      "slug": "odoia-aguas-de-iemanja",
+      "titulo": "Odoiá — Águas de Iemanjá",
+      "imagem": "odoia-aguas-de-iemanja.jpg",
+      "destaque": "terciaria",
+      "foco": "center 40%",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "1,18 × 0,98 m",
+      "alt": "Pintura Odoiá — Águas de Iemanjá: janela de céu noturno estrelado de onde cai uma cachoeira azul, emoldurada por um colar de contas e tons de fogo",
+      "texto": [
+        "As águas se abrem, e os encantos marinhos se desvelam diante dos olhos serenos da noite crepuscular. Cachoeiras derramam estrelas, e pérolas dançam no ar, refletindo a luz de Mamãe Iemanjá. Seu espelho de contas e flores conecta o mar ao céu, revelando o caminho da elevação e do conhecimento divino.",
+        "Reflete, assim, o brilho da lua no infinito das águas, onde a árvore da vida cresce e alimenta as dimensões astrais com o fruto da luz eterna do amor universal.",
+        "E tudo é canção e poesia nessa visão que, ao centro, revela o olhar do Pai da Criação em meio a estrelas, luzes e constelações."
+      ]
+    },
+    {
+      "slug": "ponto-de-luz",
+      "titulo": "Ponto de Luz",
+      "imagem": "ponto-de-luz.jpg",
+      "tecnica": "Óleo sobre madeira serrada",
+      "superficie": "Madeira serrada",
+      "dimensoes": "0,86 × 0,86 m",
+      "alt": "Pintura redonda Ponto de Luz: estrela azul ao centro de um disco dourado, com setas para os quatro pontos cardeais e bordas de penas, flores e espirais",
+      "texto": [
+        "A estrela é o ponto de conexão onde toda a energia se forma e se expande pelo universo, em vórtices de galáxias que se movem constantemente do centro para as extremidades.",
+        "Como estrela, conduz navegantes nas noites escuras, protege os estradeiros e aponta caminhos e direções nos rincões da existência. Enfim, sintetiza a vibração energética que flui e reverbera luz fraterna em todos os corações de fé."
+      ]
+    },
+    {
+      "slug": "mesa-de-santissimas-festas",
+      "titulo": "Mesa de Santíssimas Festas",
+      "imagem": "mesa-de-santissimas-festas.jpg",
+      "tecnica": "Óleo sobre tela",
+      "superficie": "Tela",
+      "dimensoes": "1,19 × 0,79 m",
+      "alt": "Pintura Mesa de Santíssimas Festas: mesa sagrada no meio da floresta, ladeada por aves e cercada por águas",
+      "texto": [
+        "A mesa é símbolo de devoção, espaço de comunhão, encontro e partilha. Forma um círculo de fraternidade entre seus participantes, representando a igualdade e a união em torno de um único propósito: a fé divina.",
+        "Nesse sentido, a mesa congrega energias místicas e celebra, em sagradas festividades, a chegada das borboletas, dos seres encantados da floresta e de todos os reinos vem passarinhos.",
+        "É o espaço de conexão que une as energias fluentes das águas da Rainha do Mar, que atravessam as matas verdejantes da Rainha da Floresta e elevam-se ao trono glorificado da Rainha Soberana, iluminada pelas sete estrelas brilhantes no céu de Maria."
+      ]
+    },
+    {
+      "slug": "guerreiro-sebastiao",
+      "titulo": "Guerreiro Sebastião",
+      "imagem": "guerreiro-sebastiao.webp",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "1,15 × 0,94 m",
+      "alt": "Pintura Guerreiro Sebastião: templo de colunas com um trono ao centro, escudo e elmo, entre flores e paisagem ao entardecer",
+      "texto": [
+        "O trono representa a realeza e o poder do guerreiro em santas missões espirituais de restauração da paz universal. O escudo, o capacete e a lança de lis simbolizam firmeza, força e energia — suas armas de defesa.",
+        "Assim, Sebastião se revela como guia e protetor de seus filhos amados. Patrono da sabedoria, detém o conhecimento dos elementares e do poder dos vegetais. Soldado romano e guerreiro forte, ele é mártir das causas perdidas e impossíveis."
+      ]
+    },
+    {
+      "slug": "senhora-das-luzes",
+      "titulo": "Senhora das Luzes",
+      "imagem": "senhora-das-luzes.webp",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "1,31 × 0,66 m",
+      "alt": "Pintura Senhora das Luzes: figura alongada envolta em ondas azuis, com uma luz alaranjada no alto, em peça de madeira recortada",
+      "texto": [
+        "Surge, em meio às ondas bravias da vida, Nossa Senhora da Guia, com suas candeias que iluminam a noite e abrem caminho para o despertar das almas aflitas e submersas nas águas turvas da existência humana.",
+        "É farol que brilha na escuridão, acalento dos sofredores e porto seguro dos navegantes que singram as ondas dos mares bravios da vida terrena e transcendental."
+      ]
+    },
+    {
+      "slug": "claridade",
+      "titulo": "Claridade",
+      "imagem": "claridade.webp",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "1,17 × 0,66 m",
+      "alt": "Pintura Claridade: figura de manto azul cercada por pétalas verdes, amarelas e rosadas, em peça de madeira recortada",
+      "texto": [
+        "A Rainha da Luz clareia os olhos curiosos com a clarividência e a capacidade de enxergar o porvir. Clara é a luz resplandecente que ilumina as veredas e traz fé, amor, silêncio e calma aos corações aflitos.",
+        "É o brilho do luar que torna os dias vindouros serenos, leves e transparentes. Enfim, representa a pureza da essência das flores do sagrado feminino, que acolhe, acalenta e cuida dos filhos amados do seio da terra."
+      ]
+    },
+    {
+      "slug": "espelho-dagua",
+      "titulo": "Espelho d’Água",
+      "imagem": "espelho-dagua.webp",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "0,41 × 0,41 m",
+      "alt": "Pintura redonda Espelho d’Água: olho ao centro de um espelho, sobre ondas azuis e um manto prateado salpicado de estrelas e conchas",
+      "texto": [
+        "O azul-anil do mar é a morada da Rainha do Mar, Yemanjá, Mãe das águas salgadas. Em noites de lua cheia e céu estrelado, os seres marinhos silenciam para ouvir o encanto de seu canto.",
+        "De seus cabelos prateados escorrem estrelas, pérolas e conchas que abençoam as ondas. Refletida no espelho das águas, sua beleza revela o mistério sagrado onde passado, presente e futuro se encontram num único instante de singular beleza."
+      ]
+    },
+    {
+      "slug": "povo-da-rua",
+      "titulo": "Povo da Rua",
+      "imagem": "povo-da-rua.jpg",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "0,79 × 0,64 m",
+      "alt": "Pintura Povo da Rua: cruz sob céu escuro, caveira ornamentada com velas e flores, cercado e terra vermelha",
+      "texto": [
+        "O mundo, a rua e a encruza têm força. Exu é o reflexo mais fiel do homem e da mulher que lutam pela própria sobrevivência, no trabalho, no amor e na alegria. É a expressão do livre-arbítrio, da forma mais natural de viver a vida, sem reservas ou receios.",
+        "É movimento, caminho aberto, comunicação entre mundos. Com a força do ferro, do fogo e da encruzilhada, Exu caminha nas fronteiras entre o sagrado e o profano, entre a vida e a morte, no plano mais próximo dos seres humanos.",
+        "Exu é, portanto, a expressão de você mesmo, na medida em que revela e potencializa aquilo que a sua própria natureza deseja. Não é bom nem mau em essência: ele apenas devolve, nos caminhos que abre ou fecha, o resultado dos seus pensamentos, escolhas e intenções — sejam de generosidade, justiça e coragem, ou de ganância, ostentação e egoísmo."
+      ]
+    },
+    {
+      "slug": "estrela-guia",
+      "titulo": "Estrela Guia",
+      "imagem": "estrela-guia.png",
+      "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
+      "superficie": "Madeira rústica reaproveitada",
+      "dimensoes": "2,10 × 0,90 m",
+      "alt": "Pintura Estrela Guia instalada na parede: trono ao centro com asas de painéis ornamentados, escadaria e flores brancas",
+      "texto": [
+        "A Estrela Guia é a rainha do firmamento. Representa a Mãe de todas as mães — no céu, é a Mãe de Cristo; na terra, acolhe todos os homens. Sua luz materna é singela e poderosa: ilumina as criaturas, sara feridas, consola os aflitos e acalma os corações.",
+        "No mês de maio, floresce na terra a devoção a Maria, Nossa Senhora dos Mistérios, que avança pelos campos da vida derramando paz, esperança, proteção e justiça.",
+        "É a Senhora da Paz, que conduz seus filhos por caminhos suaves de luz, irradiada de seu trono celeste, iluminando o universo inteiro com a esperança e o amor eternos de uma mãe."
+      ]
+    },
+    {
+      "slug": "senhora-das-navegacoes",
+      "titulo": "Senhora das Navegações",
+      "imagem": "senhora-das-navegacoes.jpg",
+      "alt": "Pintura Senhora das Navegações: escudo com âncora sobre uma cruz, acima de ondas azuis e céu estrelado, em peça de madeira recortada",
+      "texto": [
+        "Nossa vida é um pequeno barco a navegar pelas águas profundas da existência, numa navegação consciente em busca de direção, sentido e razão de existir.",
+        "Do alto mar, resplandece a luz de Nossa Senhora das Navegações, acesa na popa da embarcação como guia. Seu clarão atravessa a escuridão e conduz os filhos perdidos pelos mares da vida ao porto interior do conhecimento, da fé e da esperança, onde a alma reencontra o seu caminho."
+      ]
+    }
+  ]
+}

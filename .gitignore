@@ -1,0 +1,12 @@
+# Saída de build e caches
+dist/
+.cache/
+node_modules/
+test-results/
+playwright-report/
+
+# Material privado do cliente: CPF, dados de registro, livro inédito, portfólio.
+# Nunca versionar nem publicar.
+_privado/
+
+.DS_Store

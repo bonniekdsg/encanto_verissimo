@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Encanto Veríssimo — Arte visionária de Márcio Veríssimo</title>
+  <meta name="description" content="Pinturas de Márcio Veríssimo, artista acreano: espiritualidade, floresta e imaginação visionária em óleo sobre madeira rústica. Obras, manifesto e o livro Vivências à Luz da Ayahuasca.">
+  <link rel="canonical" href="https://encantoverissimo.com.br/">
+  <meta name="theme-color" content="#001411">
+  <meta name="color-scheme" content="dark">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Encanto Veríssimo">
+  <meta property="og:url" content="https://encantoverissimo.com.br/">
+  <meta property="og:title" content="Encanto Veríssimo — Arte visionária de Márcio Veríssimo">
+  <meta property="og:description" content="Descortine o universo dentro de você. Conheça as obras de Márcio Veríssimo.">
+  <meta property="og:image" content="https://encantoverissimo.com.br/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo Encanto Veríssimo sobre pintura de um trono na floresta sob o céu estrelado">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="preload" href="fontes/fraunces-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fontes/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  {{jsonld}}
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="hero" id="inicio">
+    <picture class="hero-art">
+      <source type="image/avif" srcset="{{hero:avif}}" sizes="max(100vw, 200svh)">
+      <source type="image/webp" srcset="{{hero:webp}}" sizes="max(100vw, 200svh)">
+      <img src="{{hero:fallback}}" width="1774" height="887" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="hero-inner">
+      <a class="brand-link" href="#inicio" aria-label="Encanto Veríssimo, início">
+        <img src="img/logo.svg" width="1126" height="689" alt="">
+      </a>
+      <div class="hero-copy">
+        <h1><span>Descortine</span> <span>o universo</span> <span>dentro de você.</span></h1>
+        <div class="ornament" aria-hidden="true"><span></span><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
+        <p>Arte visionária de Márcio Veríssimo</p>
+        <a class="pill-button" href="#obras">Explorar as obras <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="works" id="obras" aria-labelledby="obras-title">
+      <div class="works-inner">
+        <div class="works-column">
+          <div class="works-lead">
+            <h2 id="obras-title"><em>Obras</em> selecionadas</h2>
+            <div class="ornament ornament-short" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
+          </div>
+          <ul class="works-list" role="list">
+{{obras:primaria}}
+          </ul>
+        </div>
+        <ul class="works-list works-column works-column-right" role="list">
+{{obras:secundarias}}
+        </ul>
+      </div>
+    </section>
+
+    <section class="archive" id="galeria" aria-labelledby="galeria-title">
+      <div class="archive-inner">
+        <header class="archive-head">
+          <h2 id="galeria-title">Galeria</h2>
+          <div class="ornament ornament-short" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
+          <p>Águas simbólicas que limpam o olhar e ampliam a percepção. Em cada obra, o sagrado se manifesta entre o céu e a terra, em formas, cores e signos da natureza e do espírito.</p>
+        </header>
+        <div class="archive-cols">
+{{obras:acervo}}
+        </div>
+      </div>
+    </section>
+
+    <section class="artist" id="artista" aria-labelledby="artista-title">
+      <div class="artist-portrait">
+        <!-- @picture marca="marcio" alt="Márcio Veríssimo sorrindo, sentado diante de uma janela" sizes="(max-width: 700px) 100vw, 42vw" -->
+      </div>
+      <div class="artist-copy">
+        <h2 id="artista-title">A floresta é origem.<br><span>A luz, linguagem.</span></h2>
+        <div class="ornament ornament-dark" aria-hidden="true"><span></span><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
+        <p class="artist-lead">Artista acreano e autodidata, Márcio Veríssimo começou a pintar aos 20 anos, depois de uma experiência espiritual que despertou nele a capacidade de traduzir símbolos e emoções em imagem.</p>
+        <details class="artist-bio">
+          <summary>Biografia completa</summary>
+          <p>Suas pinturas revelam universos simbólicos onde signos, cores e formas dialogam com tradições ancestrais, elementos da floresta, rituais e forças místicas que conectam o humano ao transcendental. A técnica meticulosa e o forte componente espiritual consolidam sua identidade artística, marcada por obras que funcionam como portais de luz e significado.</p>
+          <p>Com composições elaboradas em madeira rústica ou tela, sua produção integra temas como renascimento, devoção, proteção, guiança e conexão cósmica. Suas peças convidam o observador a uma experiência contemplativa e sensorial, despertando reflexões sobre fé, pertencimento e a relação profunda entre o visível e o invisível.</p>
+          <p>Simultaneamente poética e simbólica, sua obra celebra o sagrado presente em todas as coisas — da estrela ao mar, da floresta ao fogo, das águas às forças universais que regem a existência.</p>
+        </details>
+        <a class="text-link" href="#manifesto">Ler o manifesto</a>
+      </div>
+    </section>
+
+    <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
+      <div class="manifesto-inner">
+        <p class="eyebrow">Manifesto artístico</p>
+        <h2 id="manifesto-title">Não passo de uma coincidência no meio de infinitas possibilidades…</h2>
+        <div class="manifesto-body">
+          <p>Eu sou filho das águas barrentas do Acre, onde a vida nasce forte, simples e cheia de mistérios. Carrego na alma a terra vermelha, o perfume da floresta e o sopro antigo das estrelas.</p>
+          <p>Foi a luz — aquela que vem do ventre do invisível — que me chamou certa manhã de sexta-feira da paixão. Ela acendeu em mim a vontade de traduzir o indizível: verbos, emoções, símbolos, memórias que não pertencem só a esta vida.</p>
+          <p class="manifesto-litany">Pinto porque vejo além da matéria.<br>Pinto porque sinto o mundo mover-se em vibrações sutis.<br>Pinto porque a arte é a linguagem secreta que liga o céu à terra, o corpo ao espírito, o homem ao infinito.</p>
+          <p class="manifesto-maps">Minhas obras são mapas:<br>
+            de <a href="#obra-ponto-de-luz">estrelas que apontam caminhos</a>,<br>
+            de <a href="#obra-mesa-de-santissimas-festas">mesas sagradas que celebram os reinos</a>,<br>
+            de <a href="#obra-ressurreicao">cruzes que renascem</a>,<br>
+            de <a href="#obra-odoia-aguas-de-iemanja">águas que cantam</a>,<br>
+            de <a href="#obra-guerreiro-sebastiao">guerreiros que protegem</a>,<br>
+            de <a href="#obra-senhora-das-luzes">luzes que acolhem</a>.</p>
+          <blockquote class="manifesto-climax"><p>Cada traço é oração.<br>Cada cor é um sopro de vida.<br>Cada símbolo é uma ponte entre mundos.</p></blockquote>
+          <p>Sou artista porque fui chamado pela própria luz. E, enquanto ela me guiar, seguirei transformando silêncio em imagem, fé em cor e transcendência em matéria, para que aqueles que olham minhas obras também encontrem seu próprio portal de claridade.</p>
+          <p class="manifesto-signature">Márcio Veríssimo</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="ebook" id="livro" aria-labelledby="livro-title">
+      <div class="ebook-inner">
+        <div class="ebook-copy">
+          <p class="eyebrow">Livro · em breve</p>
+          <h2 id="livro-title">Vivências à Luz da Ayahuasca</h2>
+          <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
+          <p class="ebook-lead">Ensaios, imagens e símbolos entre arte e espiritualidade.</p>
+          <a class="pill-button" href="{{whatsapp:livro}}" target="_blank" rel="noopener">Avise-me no lançamento <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <p class="ebook-note">A edição digital está em preparação. Deixe seu contato pelo WhatsApp e receba o livro assim que for lançado.</p>
+        </div>
+        <div class="ebook-art">
+          <!-- @picture marca="livro-mockup" class="ebook-mockup" alt="Capa do livro Vivências à Luz da Ayahuasca, de Márcio Veríssimo" sizes="(max-width: 700px) 78vw, 480px" -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contato">
+    <div class="contact">
+      <div class="contact-copy">
+        <h2>Converse com o artista</h2>
+        <p>Sobre uma obra, uma exposição ou o livro, fale diretamente com Márcio.</p>
+        <a class="pill-button" href="{{whatsapp:contato}}" target="_blank" rel="noopener">Conversar sobre uma obra <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+        <ul class="contact-links" role="list">
+          <li><a href="mailto:mv@seringal.com">mv@seringal.com</a></li>
+          <li><a href="https://www.instagram.com/encantoverissimo/" target="_blank" rel="noopener">Instagram @encantoverissimo</a></li>
+        </ul>
+      </div>
+      <figure class="visit">
+        <!-- @picture marca="instituto-origena" alt="Sede do Instituto Orígena ao pôr do sol, entre árvores, em Rio Branco" sizes="(max-width: 800px) calc(100vw - 48px), 520px" -->
+        <figcaption><strong>Exposição permanente</strong> Instituto Orígena · Rio Branco, Acre</figcaption>
+      </figure>
+    </div>
+    <div class="footer-brand">
+      <span aria-hidden="true"></span>
+      <a href="#inicio" aria-label="Encanto Veríssimo, voltar ao início"><img src="img/logo.svg" width="1126" height="689" alt="" loading="lazy"></a>
+      <span aria-hidden="true"></span>
+    </div>
+    <nav aria-label="Seções">
+      <a href="#obras">Obras</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#artista">O artista</a>
+      <a href="#manifesto">Manifesto</a>
+      <a href="#livro">Livro</a>
+    </nav>
+    <p class="legal">© Márcio Veríssimo. As imagens das obras são protegidas por direitos autorais.</p>
+  </footer>
+
+  <dialog class="viewer" id="viewer" aria-labelledby="viewer-title">
+    <button class="viewer-close" type="button" aria-label="Fechar" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="viewer-body">
+      <figure class="viewer-figure"></figure>
+      <div class="viewer-copy">
+        <p class="viewer-count" aria-live="polite"><span id="viewer-index">1</span> de {{obras:total}}</p>
+        <h2 id="viewer-title"></h2>
+        <div class="viewer-text"></div>
+      </div>
+    </div>
+    <div class="viewer-nav">
+      <button class="viewer-prev" type="button" aria-label="Obra anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
+      <button class="viewer-next" type="button" aria-label="Próxima obra"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+    </div>
+  </dialog>
+</body>
+</html>

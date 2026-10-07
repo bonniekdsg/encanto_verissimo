@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://encantoverissimo.com.br/sitemap.xml
