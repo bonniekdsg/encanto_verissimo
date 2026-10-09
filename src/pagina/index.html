@@ -29,28 +29,32 @@
   <link rel="preload" href="fontes/literata-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
+  <script src="motion.js" defer></script>
   {{jsonld}}
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
   <header class="hero" id="inicio">
-    <picture class="hero-art">
-      <source type="image/avif" srcset="{{hero:avif}}" sizes="max(100vw, 200svh)">
-      <source type="image/webp" srcset="{{hero:webp}}" sizes="max(100vw, 200svh)">
-      <img src="{{hero:fallback}}" width="1774" height="887" alt="" fetchpriority="high" decoding="async">
-    </picture>
+    <div class="hero-art">
+      <picture>
+        <source type="image/avif" srcset="{{hero:avif}}" sizes="max(100vw, 200svh)">
+        <source type="image/webp" srcset="{{hero:webp}}" sizes="max(100vw, 200svh)">
+        <img src="{{hero:fallback}}" width="1774" height="887" alt="" fetchpriority="high" decoding="async">
+      </picture>
+    </div>
     <div class="hero-inner">
       <a class="brand-link" href="#inicio" aria-label="Encanto Veríssimo, início">
         <img src="img/logo.svg" width="1126" height="689" alt="">
       </a>
       <div class="hero-copy">
-        <h1><span>Descortine</span> <span>o universo</span> <span>dentro de você.</span></h1>
+        <h1><span class="line"><span>Descortine</span></span> <span class="line"><span>o universo</span></span> <span class="line"><span>dentro de você.</span></span></h1>
         <div class="ornament" aria-hidden="true"><span></span><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
         <p>Arte visionária de Márcio Veríssimo</p>
         <a class="pill-button" href="#obras">Explorar as obras <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
       </div>
     </div>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
   </header>
 
   <main id="conteudo">
@@ -89,7 +93,7 @@
         <!-- @picture marca="marcio" alt="Márcio Veríssimo sorrindo, sentado diante de uma janela" sizes="(max-width: 700px) 100vw, 42vw" -->
       </div>
       <div class="artist-copy">
-        <h2 id="artista-title">A floresta é origem.<br><span>A luz, linguagem.</span></h2>
+        <h2 id="artista-title"><span class="line"><span>A floresta é origem.</span></span> <span class="line"><span class="ink">A luz, linguagem.</span></span></h2>
         <div class="ornament ornament-dark" aria-hidden="true"><span></span><svg viewBox="0 0 24 24"><path d="M12 0c.9 6.9 2.1 10.1 12 12-9.9 1.9-11.1 5.1-12 12C11.1 17.1 9.9 13.9 0 12 9.9 10.1 11.1 6.9 12 0Z"/></svg><span></span></div>
         <p class="artist-lead">Artista acreano e autodidata, Márcio Veríssimo começou a pintar aos 20 anos, depois de uma experiência espiritual que despertou nele a capacidade de traduzir símbolos e emoções em imagem.</p>
         <details class="artist-bio">
@@ -108,15 +112,15 @@
         <div class="manifesto-body">
           <p>Eu sou filho das águas barrentas do Acre, onde a vida nasce forte, simples e cheia de mistérios. Carrego na alma a terra vermelha, o perfume da floresta e o sopro antigo das estrelas.</p>
           <p>Foi a luz — aquela que vem do ventre do invisível — que me chamou certa manhã de sexta-feira da paixão. Ela acendeu em mim a vontade de traduzir o indizível: verbos, emoções, símbolos, memórias que não pertencem só a esta vida.</p>
-          <p class="manifesto-litany">Pinto porque vejo além da matéria.<br>Pinto porque sinto o mundo mover-se em vibrações sutis.<br>Pinto porque a arte é a linguagem secreta que liga o céu à terra, o corpo ao espírito, o homem ao infinito.</p>
-          <p class="manifesto-maps">Minhas obras são mapas:<br>
-            de <a href="#obra-ponto-de-luz">estrelas que apontam caminhos</a>,<br>
-            de <a href="#obra-mesa-de-santissimas-festas">mesas sagradas que celebram os reinos</a>,<br>
-            de <a href="#obra-ressurreicao">cruzes que renascem</a>,<br>
-            de <a href="#obra-odoia-aguas-de-iemanja">águas que cantam</a>,<br>
-            de <a href="#obra-guerreiro-sebastiao">guerreiros que protegem</a>,<br>
-            de <a href="#obra-senhora-das-luzes">luzes que acolhem</a>.</p>
-          <blockquote class="manifesto-climax"><p>Cada traço é oração.<br>Cada cor é um sopro de vida.<br>Cada símbolo é uma ponte entre mundos.</p></blockquote>
+          <p class="manifesto-litany"><span class="verse">Pinto porque vejo além da matéria.</span> <span class="verse">Pinto porque sinto o mundo mover-se em vibrações sutis.</span> <span class="verse">Pinto porque a arte é a linguagem secreta que liga o céu à terra, o corpo ao espírito, o homem ao infinito.</span></p>
+          <p class="manifesto-maps"><span class="verse">Minhas obras são mapas:</span>
+            <span class="verse">de <a href="#obra-ponto-de-luz">estrelas que apontam caminhos</a>,</span>
+            <span class="verse">de <a href="#obra-mesa-de-santissimas-festas">mesas sagradas que celebram os reinos</a>,</span>
+            <span class="verse">de <a href="#obra-ressurreicao">cruzes que renascem</a>,</span>
+            <span class="verse">de <a href="#obra-odoia-aguas-de-iemanja">águas que cantam</a>,</span>
+            <span class="verse">de <a href="#obra-guerreiro-sebastiao">guerreiros que protegem</a>,</span>
+            <span class="verse">de <a href="#obra-senhora-das-luzes">luzes que acolhem</a>.</span></p>
+          <blockquote class="manifesto-climax"><p><span class="line"><span>Cada traço é oração.</span></span> <span class="line"><span>Cada cor é um sopro de vida.</span></span> <span class="line"><span>Cada símbolo é uma ponte entre mundos.</span></span></p></blockquote>
           <p>Sou artista porque fui chamado pela própria luz. E, enquanto ela me guiar, seguirei transformando silêncio em imagem, fé em cor e transcendência em matéria, para que aqueles que olham minhas obras também encontrem seu próprio portal de claridade.</p>
           <p class="manifesto-signature">Márcio Veríssimo</p>
         </div>
@@ -133,7 +137,7 @@
           <p class="ebook-note">A edição digital está em preparação. Deixe seu contato pelo WhatsApp e receba o livro assim que for lançado.</p>
         </div>
         <div class="ebook-art">
-          <!-- @picture marca="livro-mockup" class="ebook-mockup" alt="Capa do livro Vivências à Luz da Ayahuasca, de Márcio Veríssimo" sizes="(max-width: 700px) 78vw, 480px" -->
+          <!-- @picture marca="livro-mockup" class="ebook-mockup" alt="Capa do livro Vivências à Luz da Ayahuasca, de Márcio Veríssimo" sizes="(max-width: 700px) 72vw, 400px" -->
         </div>
       </div>
     </section>

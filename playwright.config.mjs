@@ -19,5 +19,8 @@ export default defineConfig({
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], channel: "chrome", viewport: { width: 1440, height: 900 } } },
     { name: "mobile", use: { ...devices["Pixel 7"], channel: "chrome" } },
+    // Safari no macOS e no iOS (motor WebKit). Requer: npx playwright install webkit
+    { name: "safari", use: { ...devices["Desktop Safari"], viewport: { width: 1440, height: 900 } } },
+    { name: "iphone", use: { ...devices["iPhone 14"] } },
   ],
 });

@@ -62,5 +62,9 @@ createServer(async (req, res) => {
   const headers = { "Content-Type": TYPES[extname(file)] ?? "application/octet-stream" };
   for (const rule of rules) if (rule.pattern.test(pathname)) Object.assign(headers, rule.headers);
   delete headers["Strict-Transport-Security"]; // HSTS em http://localhost não faz sentido
+  // upgrade-insecure-requests faria o WebKit pedir https://localhost; em produção (HTTPS) não há diferença.
+  if (headers["Content-Security-Policy"]) {
+    headers["Content-Security-Policy"] = headers["Content-Security-Policy"].replace(/;\s*upgrade-insecure-requests/, "");
+  }
   res.writeHead(status, headers).end(await readFile(file));
 }).listen(PORT, () => console.log(`dist/ em http://localhost:${PORT}`));

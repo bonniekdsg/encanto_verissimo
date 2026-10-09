@@ -12,7 +12,8 @@ if (viewer && works.length) {
 
   const indexFromHash = (hash) => works.findIndex((work) => `#${work.id}` === hash);
 
-  function render(index) {
+  // direction: -1 anterior, 1 próxima, 0 abertura. O motion.js anima a troca a partir do evento.
+  function render(index, direction = 0) {
     current = (index + works.length) % works.length;
     const work = works[current];
 
@@ -28,6 +29,7 @@ if (viewer && works.length) {
     counter.textContent = String(current + 1);
     text.parentElement.scrollTop = 0;
     history.replaceState(null, "", `#${work.id}`);
+    viewer.dispatchEvent(new CustomEvent("viewer:change", { detail: { direction } }));
   }
 
   function open(index) {
@@ -47,17 +49,16 @@ if (viewer && works.length) {
   });
 
   viewer.querySelector(".viewer-close").addEventListener("click", () => viewer.close());
-  viewer.querySelector(".viewer-prev").addEventListener("click", () => render(current - 1));
-  viewer.querySelector(".viewer-next").addEventListener("click", () => render(current + 1));
+  viewer.querySelector(".viewer-prev").addEventListener("click", () => render(current - 1, -1));
+  viewer.querySelector(".viewer-next").addEventListener("click", () => render(current + 1, 1));
   viewer.addEventListener("click", (event) => {
     if (event.target === viewer) viewer.close();
   });
   viewer.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") render(current - 1);
-    if (event.key === "ArrowRight") render(current + 1);
+    if (event.key === "ArrowLeft") render(current - 1, -1);
+    if (event.key === "ArrowRight") render(current + 1, 1);
   });
   viewer.addEventListener("close", () => {
-    figure.replaceChildren();
     history.replaceState(null, "", location.pathname + location.search);
   });
 
@@ -68,7 +69,7 @@ if (viewer && works.length) {
     if (startX === null) return;
     const delta = event.clientX - startX;
     startX = null;
-    if (Math.abs(delta) > 50) render(current + (delta < 0 ? 1 : -1));
+    if (Math.abs(delta) > 50) render(current + (delta < 0 ? 1 : -1), delta < 0 ? 1 : -1);
   });
 
   // Links diretos: encantoverissimo.com.br/#obra-ressurreicao abre a obra.

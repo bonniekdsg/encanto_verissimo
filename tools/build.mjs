@@ -195,9 +195,13 @@ function gradientLogo(svg) {
     })
     // O pingo do último "i" de "Veríssimo" é um <circle>, não um <path>.
     .replace(/<circle class="st1"/g, '<circle fill="url(#ouro-verissimo)"')
-    .replace("</defs>", `${Object.keys(LOGO_GROUPS).map(gradientDef).join("")}</defs>`);
-  if (/<(?:path|circle|rect|polygon|ellipse)[^>]*class="st1"/.test(out)) {
-    throw new Error("logo.svg: há formas claras sem degradê; revise LOGO_GROUPS.");
+    .replace("</defs>", `${Object.keys(LOGO_GROUPS).map(gradientDef).join("")}</defs>`)
+    // Sem <style> interno: com a CSP do site (style-src 'self'), o Safari bloqueia estilos
+    // embutidos no SVG e a parte teal da pena perderia a cor. Cores viram atributos.
+    .replace(/class="st0"/g, 'fill="#456f72"')
+    .replace(/\s*<style>[\s\S]*?<\/style>/, "");
+  if (/class="st\d"|<style/.test(out)) {
+    throw new Error("logo.svg: restaram classes ou <style>; revise a conversão para atributos.");
   }
   return out;
 }
@@ -349,6 +353,29 @@ async function buildCss(obras, images) {
   await writeFile(join(DIST, "styles.css"), `${out}\n/* gerado: enquadramento das obras */\n${focos}\n${alturas}\n`);
 }
 
+// ---------------------------------------------------------------- movimento (GSAP)
+
+// GSAP servido do próprio domínio (a CSP bloqueia CDNs), com hash no nome para cache imutável.
+// O motion.js recebe os nomes finais; sem os marcadores resolvidos, o build falha.
+const GSAP_FILES = ["gsap", "ScrollTrigger", "SplitText"];
+
+async function buildMotion() {
+  await mkdir(join(DIST, "vendor"), { recursive: true });
+  const urls = {};
+  for (const name of GSAP_FILES) {
+    const code = (await readFile(join(ROOT, "node_modules", "gsap", "dist", `${name}.min.js`), "utf8"))
+      .replace(/\n?\/\/# sourceMappingURL=.*$/m, ""); // não publicamos os .map
+    const file = `${name}.${createHash("sha256").update(code).digest("hex").slice(0, 8)}.js`;
+    await writeFile(join(DIST, "vendor", file), code);
+    urls[name] = `vendor/${file}`;
+  }
+  const motion = (await readFile(join(SRC, "pagina", "motion.js"), "utf8")).replace(/\{\{vendor:(\w+)\}\}/g, (_, name) => {
+    if (!urls[name]) throw new Error(`motion.js: biblioteca desconhecida "${name}"`);
+    return urls[name];
+  });
+  await writeFile(join(DIST, "motion.js"), motion);
+}
+
 // ---------------------------------------------------------------- main
 
 async function main() {
@@ -378,6 +405,7 @@ async function main() {
   ]);
 
   const statics = ["script.js", "_headers", "robots.txt", "fontes"];
+  await buildMotion();
   await Promise.all(statics.map((f) => cp(join(SRC, "pagina", f), join(DIST, f), { recursive: true })));
   const logo = await buildLogo();
   const notFound = await readFile(join(SRC, "pagina", "404.html"), "utf8");

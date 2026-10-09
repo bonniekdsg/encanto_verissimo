@@ -54,13 +54,6 @@ test.describe("página", () => {
     });
   }
 
-  test("acessibilidade: sem violações WCAG 2.2 AA (axe)", async ({ page }) => {
-    await page.goto("/");
-    await loadAllImages(page);
-    const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
-    expect(violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
-  });
-
   test("publica todas as obras com texto curatorial", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator(".work")).toHaveCount(obras.length);
@@ -79,6 +72,18 @@ test.describe("página", () => {
     const list = ld["@graph"].find((n) => n["@type"] === "ItemList");
     expect(list.itemListElement).toHaveLength(obras.length);
     expect(ld["@graph"].find((n) => n["@type"] === "Person").sameAs).toContain("https://www.instagram.com/encantoverissimo/");
+  });
+});
+
+test.describe("acessibilidade", () => {
+  // Estado final estático: estados intermediários de animação não são o que o leitor lê.
+  test.use({ reducedMotion: "reduce" });
+
+  test("sem violações WCAG 2.2 AA (axe)", async ({ page }) => {
+    await page.goto("/");
+    await loadAllImages(page);
+    const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
+    expect(violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
   });
 });
 
@@ -115,6 +120,7 @@ test.describe("visualizador de obras", () => {
     const img = page.locator(".viewer-figure img");
     await expect(img).toBeVisible();
     await img.evaluate((el) => el.decode().catch(() => {}));
+    await page.waitForFunction(() => !window.gsap?.isTweening(document.querySelector(".viewer-figure img")));
     const imgBox = await img.boundingBox();
     const titleBox = await page.locator("#viewer-title").boundingBox();
     // imagem e título não se sobrepõem, em nenhum dos layouts (lado a lado ou empilhado)
@@ -153,5 +159,55 @@ test.describe("servidor e publicação", () => {
       .map((d) => join(d.parentPath, d.name));
     expect(files.filter((f) => !allowed.test(f))).toEqual([]);
     expect(files.filter((f) => /docx|pdf|layout|privado/i.test(f))).toEqual([]);
+  });
+});
+
+test.describe("movimento", () => {
+  test("a entrada do hero assenta sozinha, sem JavaScript de animação", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForTimeout(3000);
+    const estados = await page.$$eval(".hero h1 .line > span, .hero-copy > p, .hero .pill-button", (els) =>
+      els.map((el) => ({ opacity: getComputedStyle(el).opacity, translate: getComputedStyle(el).translate })),
+    );
+    for (const estado of estados) {
+      expect(estado.opacity).toBe("1");
+      expect(["none", "0px", "0px 0px", "0px 0%"]).toContain(estado.translate);
+    }
+  });
+
+  test("nada fica invisível depois de percorrer a página", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForFunction(() => window.ScrollTrigger?.getAll().length > 0);
+    const altura = await page.evaluate(() => document.documentElement.scrollHeight);
+    for (let y = 0; y <= altura; y += 300) {
+      await page.evaluate((v) => window.scrollTo({ top: v, behavior: "instant" }), y);
+      await page.waitForTimeout(60);
+    }
+    await page.waitForTimeout(2600);
+    const invisiveis = await page.$$eval(
+      "main h2, main h3, main p, main .work-frame, main img, footer h2, footer p, footer a, footer li, .pill-button",
+      (els) =>
+        els
+          .filter((el) => el.getClientRects().length && !el.closest("[hidden], .artist-bio:not([open])"))
+          .filter((el) => {
+            const cs = getComputedStyle(el);
+            return parseFloat(cs.opacity) < 0.99 || (cs.clipPath !== "none" && !cs.clipPath.startsWith("inset(0"));
+          })
+          .map((el) => `${el.tagName}.${el.className}`),
+    );
+    expect(invisiveis).toEqual([]);
+    expect(await page.locator(".split-line-mask").count()).toBe(0); // máscaras revertidas ao HTML original
+  });
+
+  test.describe("com movimento reduzido", () => {
+    test.use({ reducedMotion: "reduce" });
+    test("o GSAP nem é baixado", async ({ page }) => {
+    const vendor = [];
+    page.on("request", (r) => r.url().includes("/vendor/") && vendor.push(r.url()));
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    expect(vendor).toEqual([]);
+    await expect(page.locator(".hero h1 .line > span").first()).toHaveCSS("opacity", "1");
+    });
   });
 });

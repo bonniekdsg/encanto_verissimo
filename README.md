@@ -11,7 +11,7 @@ npm run serve   # serve dist/ em http://localhost:4391 com os mesmos cabeçalhos
 npm test        # build + testes de ponta a ponta (Playwright + axe) no Chrome instalado
 ```
 
-Requer Node 22+ e Google Chrome (os testes usam o Chrome do sistema; sem ele, rode `npx playwright install chromium` e remova `channel` em `playwright.config.mjs`).
+Requer Node 22+, Google Chrome e o WebKit do Playwright (`npx playwright install webkit`): os testes rodam em Chrome desktop e celular e em Safari desktop e iPhone.
 
 ## Estrutura
 
@@ -46,6 +46,14 @@ Cada obra tem link direto: `encantoverissimo.com.br/#obra-<slug>` abre o visuali
 - **Ícones** de e-mail e Instagram: [Lucide](https://lucide.dev) (licença ISC), em SVG inline com o mesmo traço das setas.
 - **CSP estrita** (`default-src 'none'`, sem inline), HSTS, `nosniff`, `frame-ancestors 'none'`. Sem `style=` inline: o enquadramento por obra é gerado como CSS.
 - **Contato via WhatsApp** com mensagem pré-preenchida (inclusive por obra e para o aviso do lançamento do livro): sem formulário, sem backend e sem coleta de dados pelo site.
+
+## Movimento
+
+- **Entrada do hero em CSS** (`styles.css`, bloco "movimento"): começa no primeiro quadro, sem esperar JavaScript. Anima `translate`/`scale`/`opacity` isolados, para nunca disputar o `transform` de hovers e do GSAP. Os fades começam em 0,02 e não em 0, porque o Chrome ignora elementos com opacidade 0 como candidatos a LCP.
+- **Scroll com GSAP** (`src/pagina/motion.js`): ScrollTrigger + SplitText, servidos do próprio domínio com hash no nome. Só são baixados se o visitante **não** pediu movimento reduzido. `gsap.matchMedia` gerencia o ciclo de vida (limpeza ao trocar de breakpoint, parallax mais contido no celular, cursor/3D/magnetismo só com mouse). Se algo falhar, tudo é revertido e o site segue estático e completo.
+- **Sem scroll hijacking:** rolagem nativa; scrub apenas acompanha a posição.
+- **Visualizador:** o `script.js` não depende do GSAP; emite `viewer:change` (com a direção) e o `motion.js` anima a troca. Abrir e fechar usam transição CSS (`@starting-style`).
+- **Licença:** GSAP sob a [Standard "No Charge" License](https://gsap.com/standard-license), gratuita para uso comercial.
 
 ## Publicação
 
