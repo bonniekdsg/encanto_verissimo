@@ -27,9 +27,16 @@ const MARCA = {
   "bg-hero-trono": { widths: [800, 1280, 1920] },
   "bg-folhas": { widths: [1000, 1983] },
   "bg-rodape": { widths: [1100, 2172] },
-  marcio: { widths: [560, 900, 1254], trimLeft: 24 }, // remove a faixa rosada na borda esquerda da foto original
+  marcio: { widths: [560, 900, 1300] }, // recorte com fundo transparente, sobre artista-sala
+  "artista-sala": { widths: [1000, 2008] },
+  "folhas-ramo": { widths: [480, 960] },
   "livro-mockup": { widths: [440, 660, 875] },
+  "livro-fundo": { widths: [1000, 1774] },
   "instituto-origena": { widths: [600, 1000, 1450] },
+  // Selos dos títulos (PNG com transparência), exibidos a ~100–150px.
+  "orn-estrela": { widths: [120, 240] },
+  "orn-portal": { widths: [120, 240] },
+  "orn-luz": { widths: [180, 360] },
 };
 
 // ---------------------------------------------------------------- utilidades

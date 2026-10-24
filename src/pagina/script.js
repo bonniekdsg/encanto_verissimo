@@ -62,13 +62,15 @@ if (viewer && works.length) {
     history.replaceState(null, "", location.pathname + location.search);
   });
 
-  // Gesto de deslizar na imagem para navegar no celular.
-  let startX = null;
-  figure.addEventListener("pointerdown", (event) => { startX = event.clientX; });
+  // Gesto de deslizar na imagem para navegar no celular. O deslize horizontal é nosso
+  // (touch-action: pan-y em .viewer-figure); gesto cancelado não deixa ponto inicial guardado.
+  let swipe = null;
+  figure.addEventListener("pointerdown", (event) => { swipe = { id: event.pointerId, x: event.clientX }; });
+  figure.addEventListener("pointercancel", () => { swipe = null; });
   figure.addEventListener("pointerup", (event) => {
-    if (startX === null) return;
-    const delta = event.clientX - startX;
-    startX = null;
+    if (!swipe || swipe.id !== event.pointerId) return;
+    const delta = event.clientX - swipe.x;
+    swipe = null;
     if (Math.abs(delta) > 50) render(current + (delta < 0 ? 1 : -1), delta < 0 ? 1 : -1);
   });
 

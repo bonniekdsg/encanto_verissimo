@@ -42,6 +42,8 @@
   --ink-muted: #2f4a44;
   --frame: rgba(219, 126, 59, 0.55);
   --veil: 0, 14, 12;
+  /* Degradê quente dos títulos de seção (o mesmo calor do título do hero). */
+  --warm: linear-gradient(180deg, #ffe3c4 0%, #f1bb8f 50%, #e3925a 100%);
 
   --display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --text: "Literata", "Iowan Old Style", Georgia, serif;
@@ -69,6 +71,7 @@ body {
 }
 img, svg { display: block; max-width: 100%; }
 picture { display: contents; }
+picture > source { display: none; } /* com display: contents, <source> viraria item vazio de flex/grid */
 h1, h2, h3, p, ul, figure, blockquote { margin: 0; }
 ul[role="list"] { list-style: none; padding: 0; }
 button { font: inherit; color: inherit; }
@@ -114,6 +117,34 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 .pill-button svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s var(--ease-out); }
 .pill-button:hover svg { transform: translateX(3px); }
 
+.warm-text {
+  background: var(--warm);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-box-decoration-break: slice;
+  box-decoration-break: slice; /* um só degradê atravessando todas as linhas do título */
+  color: transparent;
+}
+
+/* Título acompanhado de um selo ilustrado (decorativo, alt=""). */
+.title-row { display: flex; align-items: center; gap: clamp(12px, 2vw, 26px); }
+.title-row > h2 { flex: 0 1 auto; min-width: 0; }
+.title-mark { flex: none; height: auto; pointer-events: none; }
+.title-mark-estrela { width: clamp(60px, 8vw, 102px); }
+.title-mark-portal { width: clamp(58px, 7.7vw, 99px); }
+.title-mark-luz { width: clamp(84px, 11.5vw, 148px); }
+/* O portal pende do título: não empurra o ornamento e o texto que vêm abaixo. */
+.title-row-hang { align-items: flex-start; gap: 10px; }
+.title-row-hang .title-mark { margin-top: 0.15em; margin-bottom: clamp(-40px, -3.1vw, -18px); }
+
+/* Navegação por seções (hero e rodapé): o sublinhado nasce no hover. */
+.nav-links a {
+  display: inline-flex; align-items: center; min-height: 44px; text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) left calc(50% + 0.75em) / 0 1px no-repeat;
+  transition: color 0.25s, background-size 0.4s var(--ease-out);
+}
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--peach); background-size: 100% 1px; }
+
 .text-link {
   display: inline-flex; align-items: center; gap: 0.4em;
   min-height: 44px;
@@ -154,15 +185,19 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
   background:
     radial-gradient(ellipse 66% 100% at 2% 52%, rgba(var(--veil), 0.95) 0%, rgba(var(--veil), 0.84) 36%, rgba(var(--veil), 0.46) 64%, rgba(var(--veil), 0) 100%),
     radial-gradient(ellipse 34% 30% at 8% 6%, rgba(var(--veil), 0.75) 0%, rgba(var(--veil), 0) 100%),
+    linear-gradient(180deg, rgba(5, 18, 15, 0.9) 0, rgba(1, 17, 15, 0) 143px), /* faixa de leitura da navegação */
     linear-gradient(0deg, var(--deep) 0%, rgba(var(--veil), 0) 16%);
 }
 .hero-inner {
   min-height: inherit;
   display: flex; flex-direction: column;
-  padding: clamp(24px, 3vw, 44px) var(--gutter) clamp(56px, 7vw, 110px);
+  padding: clamp(16px, 1.6vw, 28px) clamp(24px, 3.5vw, 64px) clamp(56px, 7vw, 110px);
 }
-.brand-link { display: block; align-self: flex-start; width: clamp(160px, 15vw, 230px); }
+/* Logo à esquerda, seções no centro da página. */
+.hero-top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
+.brand-link { display: block; justify-self: start; width: clamp(140px, 12.7vw, 200px); }
 .brand-link img { width: 100%; height: auto; filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.45)); }
+.hero-nav { display: flex; gap: clamp(24px, 4.2vw, 54px); padding-top: 16px; font-size: 1rem; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
 .hero-copy { margin-block: auto; max-width: min(640px, 46vw); }
 .hero h1 {
   font: 600 clamp(3.4rem, 6.4vw, 7.2rem)/0.94 var(--display);
@@ -181,7 +216,7 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 }
 .hero-copy > p {
   margin: 20px 0 30px;
-  font: 400 clamp(1.15rem, 1.55vw, 1.6rem)/1.35 var(--text);
+  font: 400 clamp(1.125rem, 1.4vw, 1.5rem)/1.35 var(--text);
   color: var(--cream);
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
 }
@@ -215,8 +250,8 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 .works-column { min-width: 0; display: flex; flex-direction: column; }
 .works-column-right { justify-content: space-between; gap: 20px; }
 .works-lead { min-height: clamp(130px, 12vw, 200px); }
-.works h2 { font: 600 clamp(3rem, 4.6vw, 5.4rem)/0.9 var(--display); letter-spacing: -0.025em; }
-.works h2 em { display: block; color: var(--copper-bright); font-style: normal; }
+.works h2 { font: 600 clamp(2.5rem, 3.75vw, 3.6rem)/1.1 var(--display); letter-spacing: -0.025em; }
+.works h2 em { display: block; width: fit-content; font-style: normal; }
 
 .work { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .work-link { display: block; width: 100%; border-radius: 8px; cursor: zoom-in; }
@@ -255,7 +290,7 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 }
 .archive-cols { display: contents; }
 .archive-head { grid-column: 1; grid-row: 1; padding-bottom: clamp(56px, 6vw, 104px); }
-.archive h2 { font: 600 clamp(3.4rem, 6vw, 6rem)/0.88 var(--display); letter-spacing: -0.035em; color: var(--copper-bright); }
+.archive h2 { font: 600 clamp(2.5rem, 3.75vw, 3.6rem)/1.1 var(--display); letter-spacing: -0.03em; }
 .archive-head .ornament { margin-top: 26px; }
 .archive-head p { max-width: 36ch; margin-top: 26px; color: var(--cream-muted); font-size: clamp(1rem, 1.15vw, 1.15rem); line-height: 1.65; text-wrap: pretty; }
 .archive-col { display: flex; flex-direction: column; gap: clamp(64px, 6.6vw, 112px); }
@@ -276,34 +311,52 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 
 /* ---------------------------------------------------------------- artista */
 
+/* O painel creme começa --lift abaixo do topo: o retrato atravessa a borda e entra na seção
+   anterior. Atrás dele, a sala com janela se dissolve no papel. */
 .artist {
+  --lift: clamp(40px, 7.8vw, 104px);
+  --artist-h: calc(var(--lift) + clamp(400px, 39vw, 540px));
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   display: grid; grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
-  min-height: clamp(400px, 34vw, 560px);
-  background:
-    linear-gradient(90deg, #efe1ca, var(--paper) 40%, #f6ecdc);
+  min-height: var(--artist-h);
   color: var(--ink);
+}
+.artist::before {
+  content: "";
+  position: absolute; inset: var(--lift) 0 0; z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(244, 233, 215, 0) 0%, rgba(243, 233, 215, 0.5) 24%, #efe1ca 60%, #f6ecdc 100%),
+    url("marca:artista-sala@2008") left center / cover no-repeat,
+    var(--paper);
 }
 /* Grão de papel sutil. */
 .artist::after {
   content: "";
-  position: absolute; inset: 0; z-index: -1;
+  position: absolute; inset: var(--lift) 0 0; z-index: -1;
   pointer-events: none;
   opacity: 0.35;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .33 0 0 0 0 .2 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 .artist-portrait { position: relative; min-height: 340px; overflow: hidden; }
+/* Recorte apoiado na base: a altura manda, a largura acompanha a proporção da foto. */
 .artist-portrait img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: 30% 28%;
-  -webkit-mask-image: linear-gradient(90deg, #000 58%, transparent 99%);
-  mask-image: linear-gradient(90deg, #000 58%, transparent 99%);
+  position: absolute; left: 0; bottom: 0;
+  width: auto; max-width: none; height: 100%;
+  max-height: calc(var(--artist-h) * 1.15); /* biografia aberta: o retrato cresce só um pouco */
 }
-.artist-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: clamp(40px, 5vw, 80px) var(--gutter) clamp(40px, 5vw, 80px) clamp(24px, 3vw, 48px); }
-.artist h2 { font: 600 clamp(2.5rem, 3.8vw, 4.4rem)/0.98 var(--display); letter-spacing: -0.025em; color: var(--copper-deep); text-wrap: balance; }
+.artist-copy { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: calc(var(--lift) + clamp(32px, 4.5vw, 72px)) var(--gutter) clamp(40px, 5vw, 80px) clamp(24px, 3vw, 48px); }
+.artist h2 { font: 600 clamp(2.5rem, 3.75vw, 4.4rem)/0.98 var(--display); letter-spacing: -0.025em; color: var(--copper-deep); text-wrap: balance; }
+.artist .title-row { gap: 0; }
+/* Ramo de folhas na borda direita, cortado pela seção. */
+.artist-leaves {
+  position: absolute; z-index: -1; top: 20%; right: -15.5vw;
+  width: clamp(200px, 36.5vw, 560px); height: auto;
+  rotate: -37deg;
+  pointer-events: none;
+}
 .artist h2 .ink { color: var(--ink); }
 .artist h2 .line { display: block; overflow: hidden; padding: 0.1em 0 0.08em; margin: -0.1em 0 -0.08em; }
 .artist h2 .line > span { display: block; }
@@ -319,20 +372,23 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 
 /* ---------------------------------------------------------------- manifesto */
 
+/* Três brilhos de floresta, como luz filtrada pela mata: alto à esquerda, centro e pé à direita. */
 .manifesto {
   position: relative;
   background:
-    radial-gradient(ellipse 50% 40% at 50% 0%, rgba(200, 107, 53, 0.16), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 50% 55%, rgba(69, 111, 114, 0.1), transparent 70%),
+    radial-gradient(circle 685px at 54% 56%, rgba(47, 91, 82, 0.34), rgba(47, 91, 82, 0) 100%),
+    radial-gradient(circle 475px at 17% 17%, rgba(47, 91, 82, 0.38), rgba(47, 91, 82, 0) 100%),
+    radial-gradient(circle 475px at 87% 97%, rgba(39, 78, 70, 0.5), rgba(39, 78, 70, 0) 100%),
     var(--deep);
 }
-.manifesto-inner { max-width: 820px; margin: auto; padding: clamp(88px, 10vw, 160px) var(--gutter); text-align: center; }
+.manifesto-inner { max-width: 820px; margin: auto; padding: clamp(88px, 9vw, 160px) var(--gutter); text-align: center; }
 .manifesto h2 {
-  font: italic 400 clamp(1.75rem, 3.2vw, 2.9rem)/1.2 var(--text);
+  font: 600 clamp(1.6rem, 2.5vw, 2.25rem)/1.42 var(--display);
+  letter-spacing: -0.018em;
   color: var(--peach);
   text-wrap: balance;
 }
-.manifesto-body { margin-top: clamp(40px, 5vw, 64px); color: var(--cream-muted); font-size: clamp(1.0625rem, 1.2vw, 1.2rem); line-height: 1.75; text-wrap: pretty; }
+.manifesto-body { margin-top: clamp(40px, 5vw, 64px); color: var(--cream-muted); font-size: clamp(1.0625rem, 1.4vw, 1.2rem); line-height: 1.65; text-wrap: pretty; }
 .manifesto-body > * + * { margin-top: 1.4em; }
 .manifesto-litany { font-style: italic; color: var(--cream); }
 .manifesto-maps { color: var(--cream); }
@@ -340,8 +396,8 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 .manifesto-maps a:hover { color: var(--peach); text-decoration-color: var(--peach); text-decoration-style: solid; }
 .manifesto-climax { margin-block: 2.2em !important; padding-block: 1.4em; border-block: 1px solid rgba(233, 143, 82, 0.35); }
 .manifesto-climax p {
-  font: 600 clamp(1.7rem, 3vw, 2.6rem)/1.18 var(--display);
-  letter-spacing: -0.015em;
+  font: 600 clamp(1.6rem, 2.5vw, 2.25rem)/1.42 var(--display);
+  letter-spacing: -0.018em;
   color: var(--peach);
 }
 .manifesto-signature { font-style: italic; color: var(--peach); }
@@ -352,14 +408,30 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 .ebook {
   position: relative; overflow: hidden;
   background:
-    linear-gradient(180deg, var(--deep) 0%, rgba(0, 20, 17, 0) 16%),
-    url("marca:bg-folhas@1983") center bottom / cover no-repeat,
+    linear-gradient(180deg, var(--deep) 0%, rgba(0, 20, 17, 0) 12%),
+    url("marca:livro-fundo@1774") 40% 75% / cover no-repeat, /* cobre sempre a seção; no recorte, as folhas do pé ficam */
     var(--forest);
 }
 .ebook-inner {
+  position: relative;
   max-width: 1450px; margin: auto;
   padding: clamp(72px, 8vw, 120px) var(--gutter) clamp(140px, 15vw, 240px);
   display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); align-items: start; gap: clamp(24px, 4vw, 64px);
+}
+.ebook-copy { grid-column: 1; grid-row: 1; }
+.ebook-art { grid-column: 2; grid-row: 1; }
+/* Aura turquesa atrás da capa: clareia o fundo (screen) sem tingir o livro.
+   Absoluta dentro da área de grade da capa, para não ditar a altura da linha. */
+.ebook-inner::before {
+  --aura: clamp(420px, 55vw, 700px);
+  content: "";
+  position: absolute; grid-column: 2; grid-row: 1;
+  left: calc(min(100%, 400px, 39svh) / 2); top: 50%; width: var(--aura); height: var(--aura); translate: -50% -50%; /* centro da capa (mesma largura de .ebook-mockup) */
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(99, 228, 202, 0.32), rgba(99, 228, 202, 0.2) 48%, rgba(99, 228, 202, 0.14) 62%, rgba(99, 228, 202, 0) 100%);
+  filter: blur(16px);
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 /* O texto fica no alto, acima das folhas; o livro pode repousar sobre elas. */
 .ebook-copy { position: relative; z-index: 1; padding-top: clamp(0px, 1.6vw, 28px); }
@@ -369,12 +441,12 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
   pointer-events: none;
   background: radial-gradient(ellipse 58% 56% at 40% 54%, rgba(var(--veil), 0.92) 0%, rgba(var(--veil), 0.78) 52%, rgba(var(--veil), 0) 100%);
 }
-.ebook h2 { max-width: 11em; font: 600 clamp(3.2rem, 5.4vw, 6.2rem)/0.92 var(--display); letter-spacing: -0.025em; text-wrap: balance; filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.5)); }
+.ebook h2 { max-width: 11em; font: 600 clamp(2.9rem, 5vw, 5.4rem)/0.98 var(--display); letter-spacing: -0.025em; text-wrap: balance; filter: drop-shadow(0 4px 18px rgba(0, 0, 0, 0.5)); }
 .ebook .ornament { width: 255px; margin-top: 26px; gap: 8px; }
 .ebook .ornament svg { width: 12px; height: 12px; }
 .ebook-lead { max-width: 22ch; margin: 22px 0 30px; font: 400 clamp(1.3rem, 1.7vw, 1.75rem)/1.35 var(--text); }
 .ebook-note { max-width: 44ch; margin-top: 28px; color: var(--cream-muted); font-size: 0.9375rem; line-height: 1.6; text-shadow: 0 1px 8px rgba(0, 10, 9, 0.9); }
-.ebook-art { position: relative; z-index: 2; display: grid; justify-items: center; } /* o livro fica acima do véu do texto */
+.ebook-art { position: relative; z-index: 2; display: grid; justify-items: start; } /* o livro fica acima do véu do texto */
 /* Limitada também pela altura da tela: 39svh de largura ≈ 61% da altura visível (proporção 875×1366). */
 .ebook-mockup { width: min(100%, 400px, 39svh); height: auto; filter: drop-shadow(14px 26px 22px rgba(0, 0, 0, 0.6)); }
 
@@ -390,7 +462,7 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
   width: min(100%, 1180px);
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); align-items: center; gap: clamp(40px, 6vw, 96px);
 }
-.contact h2 { font: 600 clamp(2.6rem, 4vw, 4.4rem)/0.95 var(--display); letter-spacing: -0.025em; text-wrap: balance; }
+.contact h2 { font: 600 clamp(2.4rem, 3.75vw, 3.6rem)/1.05 var(--display); letter-spacing: -0.025em; text-wrap: balance; }
 .contact-copy > p { max-width: 40ch; margin: 18px 0 30px; color: var(--cream-muted); font-size: clamp(1.0625rem, 1.2vw, 1.2rem); line-height: 1.6; }
 .contact-links { display: flex; flex-wrap: wrap; gap: 4px 28px; margin-top: 22px; }
 .contact-links a { display: inline-flex; align-items: center; gap: 0.6em; min-height: 44px; font-size: 1rem; text-decoration: none; }
@@ -415,12 +487,7 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 .footer-brand a { width: 140px; flex: none; }
 .footer-brand img { width: 100%; height: auto; }
 .footer nav { display: flex; justify-content: center; flex-wrap: wrap; column-gap: clamp(20px, 3vw, 48px); margin-top: 16px; }
-.footer nav a {
-  display: inline-flex; align-items: center; min-height: 44px; font-size: clamp(1rem, 1.1vw, 1.1rem); text-decoration: none;
-  background: linear-gradient(currentColor, currentColor) left calc(50% + 0.75em) / 0 1px no-repeat;
-  transition: color 0.25s, background-size 0.4s var(--ease-out);
-}
-.footer nav a:hover, .footer nav a:focus-visible { color: var(--peach); background-size: 100% 1px; }
+.footer nav a { font-size: clamp(1rem, 1.1vw, 1.1rem); }
 .legal { margin-top: 14px; color: rgba(217, 203, 180, 0.75); font-size: 0.875rem; text-align: center; }
 
 /* ---------------------------------------------------------------- visualizador de obras */
@@ -438,9 +505,11 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
   color: var(--cream);
 }
 .viewer[open] { display: grid; grid-template-rows: minmax(0, 1fr); }
+/* Com o visualizador aberto a página não rola por trás; o gutter evita o salto do layout. */
+html:has(.viewer[open]) { overflow: hidden; scrollbar-gutter: stable; }
 .viewer::backdrop { background: rgba(0, 10, 9, 0.88); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .viewer-body { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(320px, 1fr); min-height: 0; }
-.viewer-figure { display: grid; place-items: center; min-height: 0; padding: clamp(20px, 3vw, 40px); background: rgba(0, 0, 0, 0.28); }
+.viewer-figure { display: grid; place-items: center; min-height: 0; padding: clamp(20px, 3vw, 40px); background: rgba(0, 0, 0, 0.28); touch-action: pan-y; }
 .viewer-figure img { width: auto; height: auto; max-width: 100%; max-height: calc(min(860px, 100dvh - 32px) - 80px); object-fit: contain; border-radius: 4px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45); }
 .viewer-copy { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(200, 107, 53, 0.5) transparent; padding: clamp(56px, 6vw, 72px) clamp(24px, 3vw, 44px) 104px; }
 .viewer-count {
@@ -496,6 +565,7 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
       hero-breathe 16s ease-in-out 2.6s infinite alternate;
   }
   .brand-link { animation: rise-in 1s var(--ease-out) 0.25s both; }
+  .hero-nav { animation: fade 1.2s ease-out 0.6s both; }
   .hero h1 .line > span { animation: line-in 1.2s var(--ease-cine) both; }
   .hero h1 .line:nth-child(1) > span { animation-delay: 0.45s; }
   .hero h1 .line:nth-child(2) > span { animation-delay: 0.58s; }
@@ -578,6 +648,12 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
   .viewer-nav { top: calc(56% - 62px); bottom: auto; right: 14px; }
 }
 
+/* Sem espaço para logo e seções lado a lado: as seções descem para uma linha própria. */
+@media (max-width: 820px) {
+  .hero-top { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .hero-nav { flex-wrap: wrap; column-gap: clamp(14px, 3.4vw, 28px); padding-top: 0; font-size: 0.9375rem; }
+}
+
 @media (max-width: 800px) {
   .hero-copy { max-width: 60vw; }
   .works-inner { gap: 22px; }
@@ -585,16 +661,27 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
   .work-secondary .work-frame { height: 280px; }
   .work-tertiary .work-frame { height: 170px; }
   .ebook-inner { grid-template-columns: 1fr; justify-items: start; }
+  .ebook { background-size: auto, cover; background-position: 0 0, 50% 100%; }
+  .ebook-art, .ebook-inner::before { grid-column: 1; grid-row: 2; }
   .ebook-art { justify-self: center; }
+  .ebook-inner::before { left: 50%; }
   .ebook-mockup { width: min(72vw, 420px, 46svh); }
   .contact { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 700px) {
-  .artist { grid-template-columns: 1fr; }
-  .artist-portrait { min-height: 0; aspect-ratio: 4 / 3.4; }
-  .artist-portrait img { object-position: 30% 30%; -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent); mask-image: linear-gradient(180deg, #000 70%, transparent); }
+  /* Empilhado: a sala fica atrás do retrato e se dissolve no papel antes do texto. */
+  .artist { --lift: 48px; grid-template-columns: 1fr; }
+  .artist::before {
+    background:
+      linear-gradient(180deg, rgba(244, 233, 215, 0) 0%, rgba(243, 233, 215, 0.5) 30%, #efe1ca 52%, #f6ecdc 100%),
+      url("marca:artista-sala@1000") 30% 0 / auto 420px no-repeat,
+      var(--paper);
+  }
+  .artist-portrait { min-height: 0; aspect-ratio: 1.08; margin-right: 8%; }
+  .artist-portrait img { -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent); mask-image: linear-gradient(180deg, #000 78%, transparent); }
   .artist-copy { padding: 8px 24px 56px; }
+  .artist-leaves { top: 10px; right: -78px; width: 190px; }
 }
 
 @media (max-width: 600px) {
@@ -620,7 +707,10 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 
   .works-inner { grid-template-columns: 1fr; padding: 48px 24px 56px; }
   .works-lead { min-height: 0; margin-bottom: 20px; }
-  .works h2 { font-size: clamp(2.5rem, 13vw, 3.3rem); }
+  .works h2, .archive h2 { font-size: clamp(2.25rem, 10vw, 2.75rem); }
+  /* Sem largura para o selo ao lado: a chama vira emblema acima do título. */
+  .artist .title-row { flex-direction: column-reverse; align-items: flex-start; gap: 6px; }
+  .title-mark-luz { width: 76px; margin-left: -8px; }
   .works-column-right { gap: 8px; }
   .work-primary .work-frame { height: auto; aspect-ratio: 4 / 3.3; }
   .work-secondary .work-frame { height: auto; aspect-ratio: 1 / 0.92; }
@@ -639,7 +729,7 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
   .manifesto-climax { padding-block: 1.1em; }
 
   .ebook-inner { padding: 72px 24px 150px; }
-  .ebook h2 { font-size: clamp(2.9rem, 12vw, 4rem); }
+  .ebook h2 { font-size: clamp(2.5rem, 11vw, 3.4rem); }
 
   .footer { padding: 72px 24px 64px; }
   .footer-brand { gap: 16px; }

@@ -85,6 +85,16 @@
         .from(el.querySelectorAll("svg"), { opacity: 0, scale: 0.4, rotation: -45, duration: 0.8, stagger: 0.12 }, 0.15);
     }
 
+    // Selo ilustrado ao lado do título: acende girando um pouco, depois do título.
+    function mark(selector, delay = 0.35) {
+      const el = document.querySelector(selector);
+      if (!el || done(el)) return;
+      gsap.from(el, {
+        opacity: 0, scale: 0.6, rotation: -18, duration: 1.3, ease: CINE, delay,
+        scrollTrigger: { trigger: el, start: START, once: true }, onComplete: () => markDone([el]),
+      });
+    }
+
     // Parallax ligado ao scroll (scrub). Só transform: nada de layout.
     function drift(target, trigger, from, to, extra = {}) {
       gsap.fromTo(target, from, { ...to, ease: "none", scrollTrigger: { trigger, start: "top bottom", end: "bottom top", scrub: true, ...extra } });
@@ -106,6 +116,7 @@
 
     function featured(depth) {
       lineReveal("#obras-title");
+      mark(".title-mark-estrela");
       ornament(".works-lead .ornament");
       document.querySelectorAll(".works .work").forEach((work, i) => {
         const frame = work.querySelector(".work-frame");
@@ -129,6 +140,7 @@
 
     function gallery({ desktop, phone }) {
       lineReveal("#galeria-title");
+      mark(".title-mark-portal");
       ornament(".archive-head .ornament");
       reveal(".archive-head p", { delay: 0.2 });
 
@@ -166,17 +178,17 @@
 
     function artist(depth) {
       const portrait = document.querySelector(".artist-portrait");
-      const img = portrait.querySelector("img");
       if (!done(portrait)) {
         gsap.fromTo(portrait, { clipPath: "inset(100% 0% 0% 0%)" }, {
           clipPath: "inset(0% 0% 0% 0%)", duration: 1.5, ease: "power4.inOut", clearProps: "clipPath",
           scrollTrigger: { trigger: portrait, start: START, once: true }, onComplete: () => markDone([portrait]),
         });
       }
-      gsap.set(img, { scale: 1.1 });
-      drift(img, ".artist", { yPercent: -4 * depth }, { yPercent: 4 * depth });
+      // O retrato é um recorte apoiado na base: fica parado. Quem se move é o ramo de folhas.
+      drift(".artist-leaves", ".artist", { y: 40 * depth }, { y: -40 * depth });
 
       maskLines("#artista-title");
+      mark(".title-mark-luz", 0.5);
       ornament(".artist .ornament", 0.35);
       reveal([".artist-lead", ".artist-bio", ".artist .text-link"], { trigger: ".artist-copy", delay: 0.35, stagger: 0.14 });
 
