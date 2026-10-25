@@ -48,12 +48,17 @@
         <a class="brand-link" href="#inicio" aria-label="Encanto Veríssimo, início">
           <img src="img/logo.svg" width="1126" height="689" alt="">
         </a>
-        <nav class="hero-nav nav-links" aria-label="Principal">
+        <!-- Celular: as seções abrem num painel (Popover API: funciona sem JS; Esc e toque fora fecham). -->
+        <button class="menu-toggle" type="button" popovertarget="menu" aria-label="Abrir menu"><span></span><span></span></button>
+        <nav class="hero-nav nav-links" id="menu" popover aria-label="Principal">
+          <img class="menu-logo" src="img/logo.svg" width="1126" height="689" alt="">
+          <button class="menu-close" type="button" popovertarget="menu" popovertargetaction="hide" aria-label="Fechar menu" autofocus><span></span><span></span></button>
           <a href="#obras">Obras</a>
           <a href="#galeria">Galeria</a>
           <a href="#artista">O artista</a>
           <a href="#manifesto">Manifesto</a>
           <a href="#livro">Livro</a>
+          <p class="menu-signature">Arte visionária de Márcio Veríssimo</p>
         </nav>
       </div>
       <div class="hero-copy">

@@ -1,3 +1,16 @@
+// Menu do celular (popover). Abrir, fechar, Esc e toque fora são nativos; aqui só fechamos
+// ao escolher uma seção e ao passar para a largura de desktop com o menu aberto.
+const menu = document.getElementById("menu");
+if (menu?.hidePopover) {
+  const isOpen = () => menu.matches(":popover-open");
+  menu.addEventListener("click", (event) => {
+    if (event.target.closest("a") && isOpen()) menu.hidePopover();
+  });
+  matchMedia("(min-width: 821px)").addEventListener("change", (event) => {
+    if (event.matches && isOpen()) menu.hidePopover();
+  });
+}
+
 // Visualizador de obras. Sem JS, cada card abre a imagem ampliada pelo próprio link.
 const viewer = document.getElementById("viewer");
 const works = [...document.querySelectorAll(".work")];
