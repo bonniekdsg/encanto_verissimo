@@ -459,10 +459,21 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 /* ---------------------------------------------------------------- contato e rodapé */
 
 .footer {
+  position: relative; isolation: isolate;
   display: flex; flex-direction: column; align-items: center;
   padding: clamp(80px, 8vw, 128px) var(--gutter) clamp(72px, 7vw, 110px);
-  /* #001618 é a cor da borda superior de bg-rodape: sem emenda visível. */
-  background: #001618 url("marca:bg-rodape@2172") center bottom / 100% auto no-repeat;
+  background: #001618;
+}
+/* Folhas do pé em camada própria, com máscara em degradê (como no Figma): opacas na base,
+   transparentes no alto, dissolvendo-se no fundo do rodapé. */
+.footer::before {
+  content: "";
+  position: absolute; inset: auto 0 0; z-index: -1;
+  aspect-ratio: 2172 / 724;
+  background: url("marca:bg-rodape@2172") center bottom / 100% auto no-repeat;
+  -webkit-mask-image: linear-gradient(0deg, #000 0%, transparent 100%);
+  mask-image: linear-gradient(0deg, #000 0%, transparent 100%);
+  pointer-events: none;
 }
 .contact {
   width: min(100%, 1180px);
