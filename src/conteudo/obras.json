@@ -6,7 +6,6 @@
       "titulo": "Ressurreição",
       "imagem": "ressurreicao.webp",
       "destaque": "primaria",
-      "foco": "center 55%",
       "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
       "superficie": "Madeira rústica reaproveitada",
       "dimensoes": "1,88 × 0,84 m",
@@ -22,7 +21,6 @@
       "titulo": "Okê Arô Ossóssi",
       "imagem": "oke-aro-ossossi.webp",
       "destaque": "secundaria",
-      "foco": "center 40%",
       "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
       "superficie": "Madeira rústica reaproveitada",
       "dimensoes": "0,41 × 0,41 m",
@@ -35,9 +33,8 @@
     {
       "slug": "odoia-aguas-de-iemanja",
       "titulo": "Odoiá — Águas de Iemanjá",
-      "imagem": "odoia-aguas-de-iemanja.jpg",
+      "imagem": "odoia-aguas-de-iemanja.webp",
       "destaque": "terciaria",
-      "foco": "center 40%",
       "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
       "superficie": "Madeira rústica reaproveitada",
       "dimensoes": "1,18 × 0,98 m",
@@ -51,7 +48,7 @@
     {
       "slug": "ponto-de-luz",
       "titulo": "Ponto de Luz",
-      "imagem": "ponto-de-luz.jpg",
+      "imagem": "ponto-de-luz.webp",
       "tecnica": "Óleo sobre madeira serrada",
       "superficie": "Madeira serrada",
       "dimensoes": "0,86 × 0,86 m",
@@ -64,7 +61,7 @@
     {
       "slug": "mesa-de-santissimas-festas",
       "titulo": "Mesa de Santíssimas Festas",
-      "imagem": "mesa-de-santissimas-festas.jpg",
+      "imagem": "mesa-de-santissimas-festas.webp",
       "tecnica": "Óleo sobre tela",
       "superficie": "Tela",
       "dimensoes": "1,19 × 0,79 m",
@@ -130,7 +127,7 @@
     {
       "slug": "povo-da-rua",
       "titulo": "Povo da Rua",
-      "imagem": "povo-da-rua.jpg",
+      "imagem": "povo-da-rua.webp",
       "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
       "superficie": "Madeira rústica reaproveitada",
       "dimensoes": "0,79 × 0,64 m",
@@ -144,11 +141,11 @@
     {
       "slug": "estrela-guia",
       "titulo": "Estrela Guia",
-      "imagem": "estrela-guia.png",
+      "imagem": "estrela-guia.webp",
       "tecnica": "Óleo sobre madeira rústica reaproveitada de refugo de serraria",
       "superficie": "Madeira rústica reaproveitada",
       "dimensoes": "2,10 × 0,90 m",
-      "alt": "Pintura Estrela Guia instalada na parede: trono ao centro com asas de painéis ornamentados, escadaria e flores brancas",
+      "alt": "Pintura Estrela Guia: trono ao centro com asas de painéis ornamentados, escadaria e flores brancas",
       "texto": [
         "A Estrela Guia é a rainha do firmamento. Representa a Mãe de todas as mães — no céu, é a Mãe de Cristo; na terra, acolhe todos os homens. Sua luz materna é singela e poderosa: ilumina as criaturas, sara feridas, consola os aflitos e acalma os corações.",
         "No mês de maio, floresce na terra a devoção a Maria, Nossa Senhora dos Mistérios, que avança pelos campos da vida derramando paz, esperança, proteção e justiça.",
@@ -158,7 +155,7 @@
     {
       "slug": "senhora-das-navegacoes",
       "titulo": "Senhora das Navegações",
-      "imagem": "senhora-das-navegacoes.jpg",
+      "imagem": "senhora-das-navegacoes.webp",
       "alt": "Pintura Senhora das Navegações: escudo com âncora sobre uma cruz, acima de ondas azuis e céu estrelado, em peça de madeira recortada",
       "texto": [
         "Nossa vida é um pequeno barco a navegar pelas águas profundas da existência, numa navegação consciente em busca de direção, sentido e razão de existir.",
