@@ -221,6 +221,22 @@ async function buildLogo() {
   return { svg, url: `img/${file}` };
 }
 
+// Demais SVGs de marca (ex.: logo do Instituto Orígena), copiados como estão, com hash no nome.
+// No HTML são referenciados como img/<nome>.svg.
+const MARCA_SVG = ["logo-origena"];
+
+async function buildBrandSvgs() {
+  return Promise.all(
+    MARCA_SVG.map(async (name) => {
+      const svg = await readFile(join(SRC, "marca", `${name}.svg`), "utf8");
+      if (/<script|\son\w+=|href=/i.test(svg)) throw new Error(`${name}.svg: script, evento ou link externo não são permitidos.`);
+      const file = `${name}.${createHash("sha256").update(svg).digest("hex").slice(0, 8)}.svg`;
+      await writeFile(join(DIST, "img", file), svg);
+      return { from: `img/${name}.svg`, url: `img/${file}` };
+    }),
+  );
+}
+
 async function buildIcons(svg) {
 
   const paths = svg.match(/<path[^>]*\/>/gs).slice(0, 2); // pena: caminho teal + caminho claro
@@ -285,8 +301,9 @@ function jsonLd(obras, images) {
   };
 }
 
-async function buildPage(obras, images, logo) {
+async function buildPage(obras, images, logo, brandSvgs) {
   let html = (await readFile(join(SRC, "pagina", "index.html"), "utf8")).replaceAll("img/logo.svg", logo.url);
+  for (const { from, url } of brandSvgs) html = html.replaceAll(from, url);
   const destaques = ["primaria", "secundaria", "terciaria"].map((slot) => {
     const obra = obras.find((o) => o.destaque === slot);
     if (!obra) throw new Error(`Nenhuma obra marcada como destaque "${slot}".`);
@@ -414,11 +431,11 @@ async function main() {
   const statics = ["script.js", "_headers", "robots.txt", "fontes"];
   await buildMotion();
   await Promise.all(statics.map((f) => cp(join(SRC, "pagina", f), join(DIST, f), { recursive: true })));
-  const logo = await buildLogo();
+  const [logo, brandSvgs] = await Promise.all([buildLogo(), buildBrandSvgs()]);
   const notFound = await readFile(join(SRC, "pagina", "404.html"), "utf8");
   await Promise.all([
     writeFile(join(DIST, "404.html"), notFound.replaceAll("/img/logo.svg", `/${logo.url}`)),
-    buildPage(obras, images, logo),
+    buildPage(obras, images, logo, brandSvgs),
     buildCss(obras, images),
     buildIcons(logo.svg),
   ]);

@@ -257,7 +257,7 @@
         gsap.timeline({ scrollTrigger: { trigger: visit, start: START, once: true }, onComplete: () => markDone([visit]) })
           .fromTo(visit, { clipPath: "inset(100% 0% 0% 0% round 10px)" }, { clipPath: "inset(0% 0% 0% 0% round 10px)", duration: 1.4, ease: "power4.inOut", clearProps: "clipPath" })
           .from(visit.querySelector("img"), { scale: 1.14, duration: 2, ease: CINE }, 0)
-          .from(visit.querySelector("figcaption"), { opacity: 0, y: 10, duration: 0.9 }, 0.8);
+          .from([visit.querySelector("figcaption"), visit.querySelector(".visit-logo")], { opacity: 0, y: 10, duration: 0.9, stagger: 0.12 }, 0.8);
       }
       const brand = document.querySelector(".footer-brand");
       if (!done(brand)) {
