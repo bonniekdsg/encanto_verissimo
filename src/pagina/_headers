@@ -17,5 +17,9 @@
 /vendor/*
   Cache-Control: public, max-age=31536000, immutable
 
+/livro/*
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Disposition: attachment; filename="vivencias-a-luz-da-ayahuasca.pdf"
+
 /img/og.jpg
   Cache-Control: public, max-age=86400

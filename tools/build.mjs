@@ -248,6 +248,21 @@ async function buildBrandSvgs() {
   );
 }
 
+// E-book: publicado com hash no nome (cache imutável; uma revisão do PDF ganha URL nova).
+// Os Workers Static Assets recusam arquivos acima de 25 MiB, então o build falha antes do deploy.
+const LIVRO = { arquivo: "vivencias-a-luz-da-ayahuasca.pdf", titulo: "Vivências à Luz da Ayahuasca" };
+const LIMITE_ASSET = 25 * 1024 * 1024;
+
+async function buildEbook() {
+  const pdf = await readFile(join(SRC, "livro", LIVRO.arquivo));
+  if (pdf.subarray(0, 5).toString("latin1") !== "%PDF-") throw new Error(`${LIVRO.arquivo} não é um PDF.`);
+  if (pdf.length > LIMITE_ASSET) throw new Error(`${LIVRO.arquivo} tem ${(pdf.length / 2 ** 20).toFixed(1)} MiB; o limite por arquivo é 25 MiB.`);
+  const file = LIVRO.arquivo.replace(/\.pdf$/, `.${createHash("sha256").update(pdf).digest("hex").slice(0, 8)}.pdf`);
+  await mkdir(join(DIST, "livro"), { recursive: true });
+  await writeFile(join(DIST, "livro", file), pdf);
+  return { url: `livro/${file}`, bytes: pdf.length, tamanho: `${(pdf.length / 1e6).toFixed(1).replace(".", ",")} MB` };
+}
+
 async function buildIcons(svg) {
 
   const paths = svg.match(/<path[^>]*\/>/gs).slice(0, 2); // pena: caminho teal + caminho claro
@@ -272,7 +287,7 @@ async function buildIcons(svg) {
 
 // ---------------------------------------------------------------- página
 
-function jsonLd(obras, images) {
+function jsonLd(obras, images, livro) {
   const person = {
     "@type": "Person",
     "@id": `${SITE_URL}/#marcio`,
@@ -289,6 +304,17 @@ function jsonLd(obras, images) {
     "@graph": [
       { "@type": "WebSite", "@id": `${SITE_URL}/#site`, url: `${SITE_URL}/`, name: "Encanto Veríssimo", inLanguage: "pt-BR", publisher: { "@id": person["@id"] } },
       person,
+      {
+        "@type": "Book",
+        "@id": `${SITE_URL}/#livro`,
+        name: LIVRO.titulo,
+        author: { "@id": person["@id"] },
+        inLanguage: "pt-BR",
+        bookFormat: "https://schema.org/EBook",
+        isAccessibleForFree: true,
+        image: `${SITE_URL}/${largest(images.marca["livro-mockup"], "webp").url}`,
+        encoding: { "@type": "MediaObject", contentUrl: `${SITE_URL}/${livro.url}`, encodingFormat: "application/pdf", contentSize: livro.tamanho },
+      },
       {
         "@type": "ItemList",
         name: "Obras de Márcio Veríssimo",
@@ -313,7 +339,7 @@ function jsonLd(obras, images) {
   };
 }
 
-async function buildPage(obras, images, logo, brandSvgs) {
+async function buildPage(obras, images, logo, brandSvgs, livro) {
   let html = (await readFile(join(SRC, "pagina", "index.html"), "utf8")).replaceAll("img/logo.svg", logo.url);
   for (const { from, url } of brandSvgs) html = html.replaceAll(from, url);
   const destaques = ["primaria", "secundaria", "terciaria"].map((slot) => {
@@ -340,9 +366,11 @@ async function buildPage(obras, images, logo, brandSvgs) {
       })
       .join("\n"),
     "obras:total": String(obras.length),
-    jsonld: `<script type="application/ld+json">${safeJson(jsonLd(obras, images))}</script>`,
+    jsonld: `<script type="application/ld+json">${safeJson(jsonLd(obras, images, livro))}</script>`,
+    "livro:pdf": livro.url,
+    "livro:tamanho": livro.tamanho,
     "whatsapp:contato": escapeHtml(whatsappLink("Olá, Márcio! Vi suas obras no site e gostaria de conversar.")),
-    "whatsapp:livro": escapeHtml(whatsappLink("Olá, Márcio! Quero ser avisado(a) do lançamento do livro “Vivências à Luz da Ayahuasca”.")),
+    "whatsapp:livro": escapeHtml(whatsappLink(`Olá, Márcio! Vim pelo livro “${LIVRO.titulo}” e gostaria de conversar.`)),
     "hero:avif": srcset(images.marca["bg-hero-trono"], "avif"),
     "hero:webp": srcset(images.marca["bg-hero-trono"], "webp"),
     "hero:fallback": nearest(images.marca["bg-hero-trono"], "webp", 1280).url,
@@ -446,11 +474,11 @@ async function main() {
   const statics = ["script.js", "_headers", "robots.txt", "fontes"];
   await buildMotion();
   await Promise.all(statics.map((f) => cp(join(SRC, "pagina", f), join(DIST, f), { recursive: true })));
-  const [logo, brandSvgs] = await Promise.all([buildLogo(), buildBrandSvgs()]);
+  const [logo, brandSvgs, livro] = await Promise.all([buildLogo(), buildBrandSvgs(), buildEbook()]);
   const notFound = await readFile(join(SRC, "pagina", "404.html"), "utf8");
   await Promise.all([
     writeFile(join(DIST, "404.html"), notFound.replaceAll("/img/logo.svg", `/${logo.url}`)),
-    buildPage(obras, images, logo, brandSvgs),
+    buildPage(obras, images, logo, brandSvgs, livro),
     buildCss(obras, images),
     buildIcons(logo.svg),
   ]);

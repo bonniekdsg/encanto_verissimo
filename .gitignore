@@ -5,7 +5,8 @@ node_modules/
 test-results/
 playwright-report/
 
-# Material privado do cliente: CPF, dados de registro, livro inédito, portfólio.
+# Material privado do cliente: CPF, dados de registro, originais do livro, portfólio.
+# (O e-book publicado fica em src/livro/.)
 # Nunca versionar nem publicar.
 _privado/
 

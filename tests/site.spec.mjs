@@ -180,12 +180,35 @@ test.describe("servidor e publicação", () => {
   });
 
   test("dist/ contém só formatos publicáveis (nada de _privado/)", async () => {
+    // O único PDF publicável é o e-book, com hash no nome; qualquer outro é vazamento.
+    const ebook = /^dist\/livro\/vivencias-a-luz-da-ayahuasca\.[0-9a-f]{8}\.pdf$/;
     const allowed = /\.(html|css|js|svg|png|jpg|webp|avif|woff2|txt|xml)$|\/_headers$/;
     const files = (await readdir("dist", { recursive: true, withFileTypes: true }))
       .filter((d) => d.isFile())
       .map((d) => join(d.parentPath, d.name));
-    expect(files.filter((f) => !allowed.test(f))).toEqual([]);
-    expect(files.filter((f) => /docx|pdf|layout|privado/i.test(f))).toEqual([]);
+    expect(files.filter((f) => !allowed.test(f) && !ebook.test(f))).toEqual([]);
+    expect(files.filter((f) => /docx|pdf|layout|privado/i.test(f) && !ebook.test(f))).toEqual([]);
+    expect(files.filter((f) => ebook.test(f))).toHaveLength(1);
+  });
+
+  test("o botão do livro baixa o PDF, com o tamanho certo e dentro do limite do Cloudflare", async ({ page, request }) => {
+    await page.goto("/");
+    const button = page.locator("#livro a.ebook-download");
+    await expect(button).toHaveAttribute("download", "vivencias-a-luz-da-ayahuasca.pdf");
+    const href = await button.getAttribute("href");
+    expect(href).toMatch(/^livro\/vivencias-a-luz-da-ayahuasca\.[0-9a-f]{8}\.pdf$/);
+    const response = await request.get(`/${href}`);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toBe("application/pdf");
+    expect(response.headers()["content-disposition"]).toMatch(/^attachment; filename="vivencias-a-luz-da-ayahuasca\.pdf"$/);
+    expect(response.headers()["cache-control"]).toContain("immutable");
+    const body = await response.body();
+    expect(body.subarray(0, 5).toString("latin1")).toBe("%PDF-");
+    expect(body.length).toBeLessThan(25 * 1024 * 1024);
+    const tamanho = `${(body.length / 1e6).toFixed(1).replace(".", ",")} MB`;
+    await expect(button.locator(".ebook-size")).toHaveText(`PDF · ${tamanho}`);
+    const ld = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+    expect(ld["@graph"].find((n) => n["@type"] === "Book").encoding.contentUrl).toMatch(new RegExp(`/${href.replace(/\./g, "\\.")}$`));
   });
 });
 

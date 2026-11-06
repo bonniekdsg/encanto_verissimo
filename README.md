@@ -20,6 +20,7 @@ src/
   conteudo/obras.json   fonte única das obras: título, técnica, dimensões, texto, alt, destaque, situação
   obras/                fotos originais das obras (nome = slug)
   obras/desenhos/       7 desenhos recebidos sem título — fora do site até serem identificados
+  livro/                e-book em PDF (publicado com hash no nome)
   marca/                logo, fundos, retrato (recorte), selos dos títulos, mockup do livro, foto do Instituto Orígena
   pagina/               template HTML, CSS, JS, 404, _headers, robots.txt, fontes
 tools/
@@ -35,6 +36,7 @@ _privado/               material do cliente (docx, PDF, layout) — ignorado pel
 
 - **Obras:** edite `src/conteudo/obras.json` e ponha a foto em `src/obras/<slug>.<ext>`. `destaque` (`primaria`, `secundaria`, `terciaria`) define o trio de abertura; as demais entram na Galeria, na ordem do arquivo. `foco` ajusta o recorte nos destaques. `situacao` (`disponivel`, `reservada`, `indisponivel`, `vendida`) é obrigatória e aparece como etiqueta sobre a foto e no visualizador; quando uma obra for vendida, basta trocar o valor e publicar.
 - **Textos do artista, manifesto e livro:** `src/pagina/index.html`.
+- **E-book:** substitua `src/livro/vivencias-a-luz-da-ayahuasca.pdf` mantendo o nome. O build publica com hash (URL nova a cada revisão, sem cache antigo), escreve o tamanho no botão e falha acima de 25 MiB, o limite por arquivo do Cloudflare. O PDF atual (10,6 MB) é o original de 32,5 MB com as imagens reduzidas a ~200 dpi; texto e vetores intactos.
 - **Imagens de marca:** `src/marca/`; larguras geradas em `MARCA` no `tools/build.mjs`. O hero usa `bg-hero-trono` (o anterior, `bg-hero`, fica guardado). O retrato (`marcio`) é um recorte com fundo transparente sobre `artista-sala`; `livro-fundo` é o fundo da seção do livro; `orn-*` são os selos ao lado dos títulos.
 - **Layout no Figma:** a página foi capturada em [Encanto Veríssimo — Landing](https://www.figma.com/design/nLciPuRoOgmSjkyGMlrsN4) (desktop, 1280px) e o código segue esse arquivo.
 
@@ -46,7 +48,7 @@ Cada obra tem link direto: `encantoverissimo.com.br/#obra-<slug>` abre o visuali
 - **Fontes no próprio domínio** (Fraunces para títulos, alinhada ao logo e à capa do livro; Literata para todo texto de leitura — a Cormorant Garamond foi substituída após usuários relatarem leitura difícil em tamanhos pequenos). Sem Google Fonts: nenhum IP de visitante enviado a terceiros (LGPD) e nada de terceiros no caminho crítico. Fraunces foi instanciada (SOFT=100, peso 500–700) e reduzida de 120 KB para 52 KB.
 - **Ícones** de e-mail e Instagram: [Lucide](https://lucide.dev) (licença ISC), em SVG inline com o mesmo traço das setas.
 - **CSP estrita** (`default-src 'none'`, sem inline), HSTS, `nosniff`, `frame-ancestors 'none'`. Sem `style=` inline: o enquadramento por obra é gerado como CSS.
-- **Contato via WhatsApp** com mensagem pré-preenchida (inclusive por obra e para o aviso do lançamento do livro): sem formulário, sem backend e sem coleta de dados pelo site.
+- **Contato via WhatsApp** com mensagem pré-preenchida (inclusive por obra e sobre o livro): sem formulário, sem backend e sem coleta de dados pelo site.
 
 ## Movimento
 
@@ -67,4 +69,3 @@ Pensado para **Cloudflare Pages** (ou Netlify — o formato de `_headers` e `404
 - Trecho de *Mesa de Santíssimas Festas*: “de todos os reinos vem passarinhos” parece ter um erro de digitação — mantido como recebido.
 - Foto do retrato e de *Senhora das Navegações* em resolução maior, se houver.
 - Origem e licença de `src/marca/artista-sala.webp` (sala com vista para o mar, fundo do retrato): confirmar antes de publicar.
-- PDF final do livro: quando existir, trocar o botão “Avise-me no lançamento” pelo download.

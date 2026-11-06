@@ -478,6 +478,10 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 .ebook .ornament { width: 255px; margin-top: 26px; gap: 8px; }
 .ebook .ornament svg { width: 12px; height: 12px; }
 .ebook-lead { max-width: 22ch; margin: 22px 0 30px; font: 400 clamp(1.3rem, 1.7vw, 1.75rem)/1.35 var(--text); }
+/* O tamanho do arquivo fica no próprio botão: quem está no celular decide antes de baixar. */
+.ebook-size { padding-left: 16px; border-left: 1px solid rgba(255, 230, 200, 0.32); font-size: 0.875rem; letter-spacing: 0.02em; opacity: 0.85; }
+.ebook-download:hover svg { transform: translateY(2px); }
+.ebook-contact { margin-top: 6px; color: var(--peach); text-shadow: 0 1px 8px rgba(0, 10, 9, 0.9); }
 .ebook-note { max-width: 44ch; margin-top: 28px; color: var(--cream-muted); font-size: 0.9375rem; line-height: 1.6; text-shadow: 0 1px 8px rgba(0, 10, 9, 0.9); }
 .ebook-art { position: relative; z-index: 2; display: grid; justify-items: start; } /* o livro fica acima do véu do texto */
 /* Limitada também pela altura da tela: 39svh de largura ≈ 61% da altura visível (proporção 875×1366). */
