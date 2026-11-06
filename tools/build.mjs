@@ -148,6 +148,7 @@ const tecnicaCurta = (obra) =>
 const SITUACOES = {
   disponivel: { tag: "Disponível", frase: "Disponível para aquisição", schema: "InStock" },
   reservada: { tag: "Reservada", frase: "Reservada", schema: "LimitedAvailability" },
+  indisponivel: { tag: "Indisponível", frase: "Indisponível para aquisição", schema: "OutOfStock" },
   vendida: { tag: "Vendida", frase: "Vendida", schema: "SoldOut" },
 };
 

@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 const obras = JSON.parse(await readFile(new URL("../src/conteudo/obras.json", import.meta.url), "utf8")).obras;
-const SITUACAO = { disponivel: "Disponível", reservada: "Reservada", vendida: "Vendida" };
+const SITUACAO = { disponivel: "Disponível", reservada: "Reservada", indisponivel: "Indisponível", vendida: "Vendida" };
 
 // Força o carregamento de todas as imagens lazy e espera cada uma terminar.
 async function loadAllImages(page) {
@@ -88,7 +88,7 @@ test.describe("página", () => {
     const ld = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
     const list = ld["@graph"].find((n) => n["@type"] === "ItemList");
     expect(list.itemListElement).toHaveLength(obras.length);
-    for (const { item } of list.itemListElement) expect(item.offers.availability).toMatch(/^https:\/\/schema\.org\/(InStock|LimitedAvailability|SoldOut)$/);
+    for (const { item } of list.itemListElement) expect(item.offers.availability).toMatch(/^https:\/\/schema\.org\/(InStock|LimitedAvailability|OutOfStock|SoldOut)$/);
     expect(ld["@graph"].find((n) => n["@type"] === "Person").sameAs).toContain("https://www.instagram.com/encantoverissimo/");
   });
 });

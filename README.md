@@ -33,7 +33,7 @@ _privado/               material do cliente (docx, PDF, layout) — ignorado pel
 
 ## Editar conteúdo
 
-- **Obras:** edite `src/conteudo/obras.json` e ponha a foto em `src/obras/<slug>.<ext>`. `destaque` (`primaria`, `secundaria`, `terciaria`) define o trio de abertura; as demais entram na Galeria, na ordem do arquivo. `foco` ajusta o recorte nos destaques. `situacao` (`disponivel`, `reservada`, `vendida`) é obrigatória e aparece como etiqueta sobre a foto e no visualizador; quando uma obra for vendida, basta trocar o valor e publicar.
+- **Obras:** edite `src/conteudo/obras.json` e ponha a foto em `src/obras/<slug>.<ext>`. `destaque` (`primaria`, `secundaria`, `terciaria`) define o trio de abertura; as demais entram na Galeria, na ordem do arquivo. `foco` ajusta o recorte nos destaques. `situacao` (`disponivel`, `reservada`, `indisponivel`, `vendida`) é obrigatória e aparece como etiqueta sobre a foto e no visualizador; quando uma obra for vendida, basta trocar o valor e publicar.
 - **Textos do artista, manifesto e livro:** `src/pagina/index.html`.
 - **Imagens de marca:** `src/marca/`; larguras geradas em `MARCA` no `tools/build.mjs`. O hero usa `bg-hero-trono` (o anterior, `bg-hero`, fica guardado). O retrato (`marcio`) é um recorte com fundo transparente sobre `artista-sala`; `livro-fundo` é o fundo da seção do livro; `orn-*` são os selos ao lado dos títulos.
 - **Layout no Figma:** a página foi capturada em [Encanto Veríssimo — Landing](https://www.figma.com/design/nLciPuRoOgmSjkyGMlrsN4) (desktop, 1280px) e o código segue esse arquivo.

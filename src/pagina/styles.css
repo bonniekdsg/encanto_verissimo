@@ -284,14 +284,14 @@ html { scrollbar-color: rgba(200, 107, 53, 0.5) var(--deep); }
 
 /* Situação de venda (obras.json → situacao). No card é uma etiqueta sobre o canto da foto;
    no visualizador, uma linha acima da ficha técnica. A cor do ponto segue a convenção de
-   galeria: verde disponível, âmbar reservada, vermelho vendida. */
+   galeria: verde disponível, âmbar reservada, vermelho indisponível ou vendida. */
 .work { position: relative; }
 .work-status {
   --status: #8fe0b0;
   display: inline-flex; align-items: center; gap: 0.6em;
 }
 .work-status[data-situacao="reservada"] { --status: #f2c46d; }
-.work-status[data-situacao="vendida"] { --status: #ef6b4f; }
+.work-status:is([data-situacao="indisponivel"], [data-situacao="vendida"]) { --status: #ef6b4f; }
 .work-status::before {
   content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%;
   background: var(--status);
