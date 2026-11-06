@@ -144,6 +144,13 @@ function hangColumns(obras, images) {
 const tecnicaCurta = (obra) =>
   obra.superficie ? `Óleo sobre ${obra.superficie[0].toLowerCase()}${obra.superficie.slice(1)}` : null;
 
+// Situação de venda: rótulo curto no card, frase no visualizador e disponibilidade no JSON-LD.
+const SITUACOES = {
+  disponivel: { tag: "Disponível", frase: "Disponível para aquisição", schema: "InStock" },
+  reservada: { tag: "Reservada", frase: "Reservada", schema: "LimitedAvailability" },
+  vendida: { tag: "Vendida", frase: "Vendida", schema: "SoldOut" },
+};
+
 function obraMeta(obra) {
   return [obra.tecnica, obra.dimensoes && `${obra.dimensoes} (nas extremidades)`].filter(Boolean);
 }
@@ -152,6 +159,7 @@ function obraItem(obra, img, { sizes, className, headingLevel, legenda = false }
   const meta = obraMeta(obra);
   const big = largest(img, "webp");
   const h = `h${headingLevel}`;
+  const situacao = SITUACOES[obra.situacao];
   return `<li class="work ${className}" id="obra-${obra.slug}" data-slug="${obra.slug}">
   <a class="work-link" href="${big.url}" aria-label="Ver a obra ${escapeHtml(obra.titulo)}">
     <span class="work-frame">${picture(img, { alt: obra.alt, sizes })}</span>
@@ -163,7 +171,9 @@ function obraItem(obra, img, { sizes, className, headingLevel, legenda = false }
     const linha = (legenda ? [tecnicaCurta(obra) && escapeHtml(tecnicaCurta(obra)), medidas] : [medidas]).filter(Boolean);
     return linha.length ? `<p class="work-size">${linha.join(" · ")}</p>` : "";
   })()}
+  <p class="work-status" data-situacao="${obra.situacao}">${situacao.tag}</p>
   <div class="work-details" hidden>
+    <p class="work-status" data-situacao="${obra.situacao}">${situacao.frase}</p>
     ${meta.length ? `<p class="work-meta">${meta.map(escapeHtml).join("<span aria-hidden=\"true\"> · </span>")}</p>` : ""}
     ${obra.texto.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n    ")}
     <a class="work-contact" href="${whatsappLink(`Olá, Márcio! Vi a obra “${obra.titulo}” no site e gostaria de conversar sobre ela.`)}" target="_blank" rel="noopener">Conversar sobre esta obra</a>
@@ -294,6 +304,7 @@ function jsonLd(obras, images) {
             description: obra.texto[0],
             image: `${SITE_URL}/${largest(images.obras[obra.slug], "webp").url}`,
             creator: { "@id": person["@id"] },
+            offers: { "@type": "Offer", availability: `https://schema.org/${SITUACOES[obra.situacao].schema}` },
           },
         })),
       },
@@ -413,6 +424,9 @@ async function main() {
   for (const obra of obras) {
     for (const field of ["slug", "titulo", "imagem", "alt", "texto"]) {
       if (!obra[field]) throw new Error(`Obra sem "${field}": ${JSON.stringify(obra).slice(0, 80)}`);
+    }
+    if (!Object.hasOwn(SITUACOES, obra.situacao)) {
+      throw new Error(`Obra "${obra.slug}" com situacao inválida: ${JSON.stringify(obra.situacao)} (use ${Object.keys(SITUACOES).join(", ")}).`);
     }
     if (slugs.has(obra.slug)) throw new Error(`Slug duplicado: ${obra.slug}`);
     slugs.add(obra.slug);

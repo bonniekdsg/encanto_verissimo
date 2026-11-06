@@ -4,6 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
 const obras = JSON.parse(await readFile(new URL("../src/conteudo/obras.json", import.meta.url), "utf8")).obras;
+const SITUACAO = { disponivel: "Disponível", reservada: "Reservada", vendida: "Vendida" };
 
 // Força o carregamento de todas as imagens lazy e espera cada uma terminar.
 async function loadAllImages(page) {
@@ -61,7 +62,23 @@ test.describe("página", () => {
       const card = page.locator(`#obra-${obra.slug}`);
       await expect(card.locator(".work-title")).toHaveText(obra.titulo);
       await expect(card.locator(".work-details p").first()).not.toBeEmpty();
+      await expect(card.locator(":scope > .work-status")).toHaveText(SITUACAO[obra.situacao]);
     }
+  });
+
+  test("a etiqueta de situação fica sobre a foto e não bloqueia o clique", async ({ page }) => {
+    await page.goto("/");
+    const card = page.locator(`#obra-${obras[0].slug}`);
+    await card.scrollIntoViewIfNeeded();
+    const tag = await card.locator(":scope > .work-status").boundingBox();
+    const frame = await card.locator(".work-frame").boundingBox();
+    expect(tag.x).toBeGreaterThan(frame.x);
+    expect(tag.y).toBeGreaterThan(frame.y);
+    expect(tag.x + tag.width).toBeLessThan(frame.x + frame.width);
+    expect(tag.y + tag.height).toBeLessThan(frame.y + frame.height);
+    await page.mouse.click(tag.x + tag.width / 2, tag.y + tag.height / 2);
+    await expect(page.locator("#viewer")).toBeVisible();
+    await expect(page.locator("#viewer-title")).toHaveText(obras[0].titulo);
   });
 
   test("metadados de compartilhamento e dados estruturados", async ({ page }) => {
@@ -71,6 +88,7 @@ test.describe("página", () => {
     const ld = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
     const list = ld["@graph"].find((n) => n["@type"] === "ItemList");
     expect(list.itemListElement).toHaveLength(obras.length);
+    for (const { item } of list.itemListElement) expect(item.offers.availability).toMatch(/^https:\/\/schema\.org\/(InStock|LimitedAvailability|SoldOut)$/);
     expect(ld["@graph"].find((n) => n["@type"] === "Person").sameAs).toContain("https://www.instagram.com/encantoverissimo/");
   });
 });
@@ -113,6 +131,15 @@ test.describe("visualizador de obras", () => {
     await expect(page.locator("#viewer")).toBeVisible();
     await expect(page.locator("#viewer-title")).toHaveText("Espelho d’Água");
     await expect(page.locator(".viewer-text .work-contact")).toHaveAttribute("href", /wa\.me\/5568999852887/);
+    const obra = obras.find((o) => o.slug === "espelho-dagua");
+    await expect(page.locator(".viewer-text .work-status")).toContainText(SITUACAO[obra.situacao]);
+    // "N de 12" numa linha só, dentro da pílula.
+    const linhas = await page.locator(".viewer-count").evaluate((el) => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      return new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size;
+    });
+    expect(linhas).toBe(1);
   });
 
   test("obra vertical não invade o título no visualizador", async ({ page }) => {

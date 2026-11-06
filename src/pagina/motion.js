@@ -128,7 +128,8 @@
             .fromTo(frame, { clipPath: "inset(100% 0% 0% 0% round 8px)" }, { clipPath: "inset(0% 0% 0% 0% round 8px)", duration: 1.4, ease: "power4.inOut" })
             .fromTo(img, { scale: 1.22 }, { scale: 1.07, duration: 2, ease: CINE }, 0)
             .from(label[0], { yPercent: 80, opacity: 0, duration: 0.9 }, 0.75)
-            .from(label.slice(1), { opacity: 0, duration: 0.9 }, 0.95);
+            .from(label.slice(1), { opacity: 0, duration: 0.9 }, 0.95)
+            .from(work.querySelector(".work-status"), { opacity: 0, y: -6, duration: 0.7 }, 1.05);
         } else {
           gsap.set(img, { scale: 1.07 });
         }
@@ -156,6 +157,7 @@
         gsap.set(item.querySelector(".work-frame"), { opacity: 0 });
         gsap.set(item.querySelector(".work-frame img"), { clipPath: shapeFor(item), scale: 1.12 });
         gsap.set([item.querySelector(".work-title"), item.querySelector(".work-size")], { opacity: 0, y: 14 });
+        gsap.set(item.querySelector(".work-status"), { opacity: 0, y: -6 });
       });
       ScrollTrigger.batch(items, {
         start: "clamp(top 90%)", once: true,
@@ -165,7 +167,8 @@
               .to(item.querySelector(".work-frame"), { opacity: 1, duration: 0.6, ease: "power2.out" })
               .to(item.querySelector(".work-frame img"), { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "power4.inOut" }, 0)
               .to(item.querySelector(".work-frame img"), { scale: 1, duration: 1.8, ease: CINE, clearProps: "clipPath,scale" }, 0)
-              .to([item.querySelector(".work-title"), item.querySelector(".work-size")], { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, 0.6);
+              .to([item.querySelector(".work-title"), item.querySelector(".work-size")], { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, 0.6)
+              .to(item.querySelector(".work-status"), { opacity: 1, y: 0, duration: 0.7 }, 0.9);
           }),
       });
 
